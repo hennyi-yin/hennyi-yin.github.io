@@ -1,36 +1,46 @@
-/* 定义CSS变量 */
+/* 定义颜色变量 */
 :root {
-    /* 默认主题（日间模式） */
-    --bg-color: #f4f4f4;
-    --text-color: #333333;
-    --header-bg-color: #f4f4f4;
-    --header-text-color: #333333;
-    --sidebar-bg-color: #f4f4f4;
-    --sidebar-text-color: #333333;
-    --footer-bg-color: #f4f4f4;
-    --footer-text-color: #333333;
-    --link-color: #35424a;
-    --link-hover: #1e90ff;
-    --button-background: #ffffff;
-    --button-text-color: #35424a;
-    --button-hover: #e0e0e0;
+    /* 基本颜色 */
+    --white: #ffffff;
+    --light-gray: #f4f4f4;
+    --dark-gray: #333333;
+    --very-dark-gray: #121212;
+    --light-text: #e0e0e0;
+    --primary-blue: #1e90ff;
+
+    /* 主题变量 - 默认主题（日间模式） */
+    --bg-color: var(--light-gray);
+    --text-color: var(--dark-gray);
+    --header-bg-color: var(--light-gray);
+    --header-text-color: var(--dark-gray);
+    --sidebar-bg-color: var(--light-gray);
+    --sidebar-text-color: var(--dark-gray);
+    --footer-bg-color: var(--light-gray);
+    --footer-text-color: var(--dark-gray);
+    --link-color: var(--primary-blue);
+    --link-hover-color: var(--primary-blue);
+    --button-bg-color: var(--white);
+    --button-text-color: var(--primary-blue);
+    --button-hover-bg-color: #e0e0e0;
+    --section-border-color: var(--link-color);
 }
 
 body.dark-theme {
     /* 夜间主题 */
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --header-bg-color: #1e1e1e;
-    --header-text-color: #e0e0e0;
-    --sidebar-bg-color: #1e1e1e;
-    --sidebar-text-color: #e0e0e0;
-    --footer-bg-color: #1e1e1e;
-    --footer-text-color: #e0e0e0;
-    --link-color: #e0e0e0;
-    --link-hover: #1e90ff;
-    --button-background: #333333;
-    --button-text-color: #e0e0e0;
-    --button-hover: #555555;
+    --bg-color: var(--very-dark-gray);
+    --text-color: var(--light-text);
+    --header-bg-color: var(--very-dark-gray);
+    --header-text-color: var(--light-text);
+    --sidebar-bg-color: var(--very-dark-gray);
+    --sidebar-text-color: var(--light-text);
+    --footer-bg-color: var(--very-dark-gray);
+    --footer-text-color: var(--light-text);
+    --link-color: var(--light-text);
+    --link-hover-color: var(--primary-blue);
+    --button-bg-color: #333333;
+    --button-text-color: var(--light-text);
+    --button-hover-bg-color: #555555;
+    --section-border-color: var(--light-text);
 }
 
 body {
