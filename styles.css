@@ -1,14 +1,16 @@
-/* 定义颜色变量 */
+/* 定义基础颜色变量 */
 :root {
-    /* 基本颜色 */
+    /* 颜色名称 */
     --white: #ffffff;
     --light-gray: #f4f4f4;
     --dark-gray: #333333;
     --very-dark-gray: #121212;
     --light-text: #e0e0e0;
     --primary-blue: #1e90ff;
-
-    /* 主题变量 - 默认主题（日间模式） */
+    --secondary-blue: #0056b3; /* 更深的蓝色，用于提高对比度 */
+    --hover-gray: #b3b3b3; /* 按钮悬停时的背景色 */
+    
+    /* 默认主题（日间模式） */
     --bg-color: var(--light-gray);
     --text-color: var(--dark-gray);
     --header-bg-color: var(--light-gray);
@@ -17,11 +19,11 @@
     --sidebar-text-color: var(--dark-gray);
     --footer-bg-color: var(--light-gray);
     --footer-text-color: var(--dark-gray);
-    --link-color: var(--primary-blue);
+    --link-color: var(--secondary-blue); /* 更深的蓝色以确保对比度 */
     --link-hover-color: var(--primary-blue);
     --button-bg-color: var(--white);
     --button-text-color: var(--primary-blue);
-    --button-hover-bg-color: #e0e0e0;
+    --button-hover-bg-color: var(--hover-gray);
     --section-border-color: var(--link-color);
 }
 
@@ -43,6 +45,7 @@ body.dark-theme {
     --section-border-color: var(--light-text);
 }
 
+/* 导入 Google Fonts */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -96,7 +99,7 @@ header p {
 
 .main-nav ul li a:hover {
     text-decoration: underline;
-    color: var(--link-hover);
+    color: var(--link-hover-color);
 }
 
 /* 主题切换按钮样式 */
@@ -105,7 +108,7 @@ header p {
     top: 20px;
     right: 20px;
     padding: 8px 16px;
-    background-color: var(--button-background);
+    background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: none;
     border-radius: 4px;
@@ -114,7 +117,7 @@ header p {
 }
 
 #theme-toggle:hover {
-    background-color: var(--button-hover);
+    background-color: var(--button-hover-bg-color);
 }
 
 /* 容器布局 */
@@ -154,7 +157,7 @@ header p {
 
 .sidebar a:hover {
     text-decoration: underline;
-    color: var(--link-hover);
+    color: var(--link-hover-color);
 }
 
 .sidebar .social-links a {
@@ -165,7 +168,7 @@ header p {
 
 .sidebar .social-links a:hover {
     text-decoration: underline;
-    color: var(--link-hover);
+    color: var(--link-hover-color);
 }
 
 /* 主要内容样式 */
@@ -183,7 +186,7 @@ section {
 }
 
 section h2 {
-    border-bottom: 2px solid var(--link-color);
+    border-bottom: 2px solid var(--section-border-color);
     padding-bottom: 10px;
     color: var(--link-color);
 }
@@ -199,7 +202,7 @@ section a {
 
 section a:hover {
     text-decoration: underline;
-    color: var(--link-hover);
+    color: var(--link-hover-color);
 }
 
 /* 页脚样式 */
