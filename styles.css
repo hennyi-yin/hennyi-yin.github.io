@@ -79,13 +79,14 @@ header p {
 }
 
 .main-nav ul li a {
-    color: var(--header-text-color);
+    color: var(--link-color);
     text-decoration: none;
     font-weight: bold;
 }
 
 .main-nav ul li a:hover {
     text-decoration: underline;
+    color: var(--link-hover);
 }
 
 /* 主题切换按钮样式 */
@@ -94,8 +95,8 @@ header p {
     top: 20px;
     right: 20px;
     padding: 8px 16px;
-    background-color: var(--toggle-bg-color);
-    color: var(--toggle-text-color);
+    background-color: var(--button-background);
+    color: var(--button-text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -103,7 +104,7 @@ header p {
 }
 
 #theme-toggle:hover {
-    background-color: #e0e0e0; /* 可根据需要调整为变量 */
+    background-color: var(--button-hover);
 }
 
 /* 容器布局 */
@@ -137,22 +138,24 @@ header p {
 }
 
 .sidebar a {
-    color: var(--sidebar-text-color);
+    color: var(--link-color);
     text-decoration: none;
 }
 
 .sidebar a:hover {
     text-decoration: underline;
+    color: var(--link-hover);
 }
 
 .sidebar .social-links a {
-    color: var(--sidebar-text-color);
+    color: var(--link-color);
     text-decoration: none;
     margin: 0 5px;
 }
 
 .sidebar .social-links a:hover {
     text-decoration: underline;
+    color: var(--link-hover);
 }
 
 /* 主要内容样式 */
@@ -170,9 +173,9 @@ section {
 }
 
 section h2 {
-    border-bottom: 2px solid var(--header-bg-color);
+    border-bottom: 2px solid var(--link-color);
     padding-bottom: 10px;
-    color: var(--header-bg-color);
+    color: var(--link-color);
 }
 
 section ul {
@@ -180,12 +183,13 @@ section ul {
 }
 
 section a {
-    color: var(--header-bg-color);
+    color: var(--link-color);
     text-decoration: none;
 }
 
 section a:hover {
     text-decoration: underline;
+    color: var(--link-hover);
 }
 
 /* 页脚样式 */
