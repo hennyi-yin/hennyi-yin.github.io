@@ -1,18 +1,46 @@
-/* 导入 Google Fonts */
+/* 定义 CSS 变量 */
+:root {
+    /* 主题颜色 - 日间模式 */
+    --bg-color: #f4f4f4;
+    --text-color: #333333;
+    --header-bg-color: #35424a;
+    --header-text-color: #ffffff;
+    --sidebar-bg-color: #35424a;
+    --sidebar-text-color: #ffffff;
+    --footer-bg-color: #35424a;
+    --footer-text-color: #ffffff;
+    --toggle-bg-color: #ffffff;
+    --toggle-text-color: #35424a;
+}
+
+body.dark-theme {
+    /* 主题颜色 - 夜间模式 */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg-color: #1e1e1e;
+    --header-text-color: #e0e0e0;
+    --sidebar-bg-color: #1e1e1e;
+    --sidebar-text-color: #e0e0e0;
+    --footer-bg-color: #1e1e1e;
+    --footer-text-color: #e0e0e0;
+    --toggle-bg-color: #333333;
+    --toggle-text-color: #e0e0e0;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
 /* 头部样式 */
 header {
-    background-color: #35424a;
-    color: #ffffff;
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
     padding: 20px;
     position: relative;
 }
@@ -45,7 +73,7 @@ header p {
 }
 
 .main-nav ul li a {
-    color: #ffffff;
+    color: var(--header-text-color);
     text-decoration: none;
     font-weight: bold;
 }
@@ -60,8 +88,8 @@ header p {
     top: 20px;
     right: 20px;
     padding: 8px 16px;
-    background-color: #ffffff;
-    color: #35424a;
+    background-color: var(--toggle-bg-color);
+    color: var(--toggle-text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -69,20 +97,20 @@ header p {
 }
 
 #theme-toggle:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* 可根据需要调整为变量 */
 }
 
 /* 容器布局 */
 .container {
     display: flex;
-    min-height: calc(100vh - 140px); /* 减去header和footer的高度 */
+    min-height: calc(100vh - 140px); /* 根据 header 和 footer 高度调整 */
 }
 
 /* 侧边栏样式 */
 .sidebar {
     width: 250px;
-    background-color: #35424a;
-    color: #ffffff;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
     padding: 20px;
     box-sizing: border-box;
     flex-shrink: 0;
@@ -103,7 +131,7 @@ header p {
 }
 
 .sidebar a {
-    color: #ffffff;
+    color: var(--sidebar-text-color);
     text-decoration: none;
 }
 
@@ -112,7 +140,7 @@ header p {
 }
 
 .sidebar .social-links a {
-    color: #ffffff;
+    color: var(--sidebar-text-color);
     text-decoration: none;
     margin: 0 5px;
 }
@@ -125,7 +153,8 @@ header p {
 main {
     flex: 1;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
     box-sizing: border-box;
 }
@@ -135,9 +164,9 @@ section {
 }
 
 section h2 {
-    border-bottom: 2px solid #35424a;
+    border-bottom: 2px solid var(--header-bg-color);
     padding-bottom: 10px;
-    color: #35424a;
+    color: var(--header-bg-color);
 }
 
 section ul {
@@ -145,7 +174,7 @@ section ul {
 }
 
 section a {
-    color: #35424a;
+    color: var(--header-bg-color);
     text-decoration: none;
 }
 
@@ -155,59 +184,12 @@ section a:hover {
 
 /* 页脚样式 */
 footer {
-    background-color: #35424a;
-    color: #ffffff;
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
     text-align: center;
     padding: 10px 0;
     width: 100%;
     position: relative;
-}
-
-/* 夜间主题样式 */
-body.dark-theme {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-body.dark-theme header {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-theme .main-nav ul li a {
-    color: #e0e0e0;
-}
-
-body.dark-theme #theme-toggle {
-    background-color: #333333;
-    color: #e0e0e0;
-}
-
-body.dark-theme #theme-toggle:hover {
-    background-color: #555555;
-}
-
-body.dark-theme .sidebar {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-theme .sidebar a {
-    color: #e0e0e0;
-}
-
-body.dark-theme main {
-    background-color: #1e1e1e;
-}
-
-body.dark-theme section h2 {
-    border-bottom: 2px solid #e0e0e0;
-    color: #e0e0e0;
-}
-
-body.dark-theme footer {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
 }
 
 /* 响应式设计 */
