@@ -13,7 +13,7 @@ body {
 header {
     background-color: #35424a;
     color: #ffffff;
-    padding: 20px 0;
+    padding: 20px;
     text-align: center;
     position: relative;
 }
@@ -24,28 +24,8 @@ header h1 {
 }
 
 header p {
-    margin: 5px 0 20px;
+    margin: 5px 0 10px;
     font-size: 1.2em;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
 }
 
 /* 主题切换按钮样式 */
@@ -66,13 +46,62 @@ nav ul li a:hover {
     background-color: #e0e0e0;
 }
 
+/* 容器布局 */
+.container {
+    display: flex;
+    min-height: calc(100vh - 140px); /* 减去header和footer的高度 */
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 250px;
+    background-color: #35424a;
+    color: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.sidebar .profile-pic {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar p {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.sidebar .social-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.sidebar .social-links a:hover {
+    text-decoration: underline;
+}
+
 /* 主要内容样式 */
 main {
+    flex: 1;
     padding: 20px;
-    max-width: 1000px;
-    margin: auto;
     background-color: #ffffff;
     transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
 }
 
 section {
@@ -104,9 +133,7 @@ footer {
     color: #ffffff;
     text-align: center;
     padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    position: relative;
 }
 
 /* 夜间主题样式 */
@@ -120,10 +147,6 @@ body.dark-theme header {
     color: #e0e0e0;
 }
 
-body.dark-theme nav ul li a {
-    color: #e0e0e0;
-}
-
 body.dark-theme #theme-toggle {
     background-color: #333333;
     color: #e0e0e0;
@@ -131,6 +154,15 @@ body.dark-theme #theme-toggle {
 
 body.dark-theme #theme-toggle:hover {
     background-color: #555555;
+}
+
+body.dark-theme .sidebar {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-theme .sidebar a {
+    color: #e0e0e0;
 }
 
 body.dark-theme main {
@@ -145,4 +177,26 @@ body.dark-theme section h2 {
 body.dark-theme footer {
     background-color: #1e1e1e;
     color: #e0e0e0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sidebar .profile-pic {
+        width: 150px;
+        margin: 0 auto 20px;
+    }
+
+    #theme-toggle {
+        position: static;
+        margin-top: 10px;
+    }
 }
