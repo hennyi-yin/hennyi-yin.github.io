@@ -6,6 +6,7 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* 头部样式 */
@@ -14,6 +15,7 @@ header {
     color: #ffffff;
     padding: 20px 0;
     text-align: center;
+    position: relative;
 }
 
 header h1 {
@@ -46,12 +48,31 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+/* 主题切换按钮样式 */
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: #ffffff;
+    color: #35424a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#theme-toggle:hover {
+    background-color: #e0e0e0;
+}
+
 /* 主要内容样式 */
 main {
     padding: 20px;
     max-width: 1000px;
     margin: auto;
     background-color: #ffffff;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 section {
@@ -86,4 +107,42 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+/* 夜间主题样式 */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme header {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-theme nav ul li a {
+    color: #e0e0e0;
+}
+
+body.dark-theme #theme-toggle {
+    background-color: #333333;
+    color: #e0e0e0;
+}
+
+body.dark-theme #theme-toggle:hover {
+    background-color: #555555;
+}
+
+body.dark-theme main {
+    background-color: #1e1e1e;
+}
+
+body.dark-theme section h2 {
+    border-bottom: 2px solid #e0e0e0;
+    color: #e0e0e0;
+}
+
+body.dark-theme footer {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
 }
