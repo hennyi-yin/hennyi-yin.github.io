@@ -58,7 +58,7 @@ body {
 
 /* 头部样式 */
 header {
-    margin-left: 250px; /* 为固定侧边栏留出空间 */
+    margin-left: 270px; /* 为固定侧边栏留出空间 */
     padding: 20px;
     background-color: var(--header-bg-color);
     color: var(--header-text-color);
@@ -126,8 +126,8 @@ header p {
 
 /* 容器布局 */
 .container {
-    display: block;           /* 更改为块级布局 */
-    margin-left: 250px;       /* 为固定侧边栏留出空间 */
+    display: block;           /* 保持块级布局 */
+    margin-left: 270px;       /* 为固定侧边栏留出空间（250px + 20px padding） */
     padding: 20px;
     min-height: 100vh;        /* 保持最小高度 */
     box-sizing: border-box;
@@ -136,9 +136,9 @@ header p {
 /* 侧边栏样式 */
 .sidebar {
     position: fixed; /* 固定定位 */
-    top: 0;          /* 顶部对齐 */
+    top: 50%;        /* 垂直居中 */
     left: 0;         /* 左侧对齐 */
-    height: 100vh;   /* 高度为视口高度 */
+    transform: translateY(-50%); /* 垂直居中 */
     width: 250px;    /* 宽度保持不变 */
     background-color: var(--sidebar-bg-color);
     color: var(--sidebar-text-color);
