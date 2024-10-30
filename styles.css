@@ -1,202 +1,35 @@
-/* 导入 Google Fonts */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-}
+// script.js
 
-/* 头部样式 */
-header {
-    background-color: #35424a;
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
+    if (currentTheme) {
+        document.body.classList.add(currentTheme);
 
-header p {
-    margin: 5px 0 10px;
-    font-size: 1.2em;
-}
-
-/* 主题切换按钮样式 */
-#theme-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 8px 16px;
-    background-color: #ffffff;
-    color: #35424a;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-#theme-toggle:hover {
-    background-color: #e0e0e0;
-}
-
-/* 容器布局 */
-.container {
-    display: flex;
-    min-height: calc(100vh - 140px); /* 减去header和footer的高度 */
-}
-
-/* 侧边栏样式 */
-.sidebar {
-    width: 250px;
-    background-color: #35424a;
-    color: #ffffff;
-    padding: 20px;
-    box-sizing: border-box;
-    flex-shrink: 0;
-}
-
-.sidebar .profile-pic {
-    width: 100%;
-    border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-.sidebar h2 {
-    margin-top: 0;
-}
-
-.sidebar p {
-    margin: 10px 0;
-}
-
-.sidebar a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.sidebar a:hover {
-    text-decoration: underline;
-}
-
-.sidebar .social-links a {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 5px;
-}
-
-.sidebar .social-links a:hover {
-    text-decoration: underline;
-}
-
-/* 主要内容样式 */
-main {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
-    transition: background-color 0.3s, color 0.3s;
-    box-sizing: border-box;
-}
-
-section {
-    margin-bottom: 40px;
-}
-
-section h2 {
-    border-bottom: 2px solid #35424a;
-    padding-bottom: 10px;
-    color: #35424a;
-}
-
-section ul {
-    list-style: disc inside;
-}
-
-section a {
-    color: #35424a;
-    text-decoration: none;
-}
-
-section a:hover {
-    text-decoration: underline;
-}
-
-/* 页脚样式 */
-footer {
-    background-color: #35424a;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 0;
-    position: relative;
-}
-
-/* 夜间主题样式 */
-body.dark-theme {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-body.dark-theme header {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-theme #theme-toggle {
-    background-color: #333333;
-    color: #e0e0e0;
-}
-
-body.dark-theme #theme-toggle:hover {
-    background-color: #555555;
-}
-
-body.dark-theme .sidebar {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-theme .sidebar a {
-    color: #e0e0e0;
-}
-
-body.dark-theme main {
-    background-color: #1e1e1e;
-}
-
-body.dark-theme section h2 {
-    border-bottom: 2px solid #e0e0e0;
-    color: #e0e0e0;
-}
-
-body.dark-theme footer {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
+        if (currentTheme === 'dark-theme') {
+            themeToggleBtn.textContent = 'Switch to Light Mode';
+        }
     }
 
-    .sidebar {
-        width: 100%;
-        text-align: center;
-    }
+    themeToggleBtn.addEventListener('click', function () {
+        document.body.classList.toggle('dark-theme');
 
-    .sidebar .profile-pic {
-        width: 150px;
-        margin: 0 auto 20px;
-    }
+        let theme = 'light-theme';
+        if (document.body.classList.contains('dark-theme')) {
+            themeToggleBtn.textContent = 'Switch to Light Mode';
+            theme = 'dark-theme';
+        } else {
+            themeToggleBtn.textContent = 'Switch to Dark Mode';
+        }
 
-    #theme-toggle {
-        position: static;
-        margin-top: 10px;
+        localStorage.setItem('theme', theme);
+    });
+
+    // 设置初始按钮文本
+    if (document.body.classList.contains('dark-theme')) {
+        themeToggleBtn.textContent = 'Switch to Light Mode';
+    } else {
+        themeToggleBtn.textContent = 'Switch to Dark Mode';
     }
-}
+});
