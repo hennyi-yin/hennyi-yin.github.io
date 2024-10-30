@@ -3,11 +3,11 @@
     /* 主题颜色 - 日间模式 */
     --bg-color: #f4f4f4;
     --text-color: #333333;
-    --header-bg-color: #35424a;
+    --header-bg-color: #f4f4f4;
     --header-text-color: #ffffff;
-    --sidebar-bg-color: #35424a;
+    --sidebar-bg-color: #f4f4f4;
     --sidebar-text-color: #ffffff;
-    --footer-bg-color: #35424a;
+    --footer-bg-color: #f4f4f4;
     --footer-text-color: #ffffff;
     --toggle-bg-color: #ffffff;
     --toggle-text-color: #35424a;
@@ -17,11 +17,11 @@ body.dark-theme {
     /* 主题颜色 - 夜间模式 */
     --bg-color: #121212;
     --text-color: #e0e0e0;
-    --header-bg-color: #1e1e1e;
+    --header-bg-color: #121212;
     --header-text-color: #e0e0e0;
-    --sidebar-bg-color: #1e1e1e;
+    --sidebar-bg-color: #121212;
     --sidebar-text-color: #e0e0e0;
-    --footer-bg-color: #1e1e1e;
+    --footer-bg-color: #121212;
     --footer-text-color: #e0e0e0;
     --toggle-bg-color: #333333;
     --toggle-text-color: #e0e0e0;
