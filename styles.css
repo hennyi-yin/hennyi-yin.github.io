@@ -45,7 +45,7 @@ body.dark-theme {
     --section-border-color: var(--light-text);
 }
 
-/* 导入 Google Fonts */
+/* 基本样式 */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -222,8 +222,14 @@ section h2 {
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
+section h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 section ul {
-    list-style: disc inside;
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
 section a {
@@ -235,6 +241,97 @@ section a {
 section a:hover {
     text-decoration: underline;
     color: var(--link-hover-color);
+}
+
+/* 手风琴样式 */
+.accordion-item {
+    border-bottom: none;/* 移除分割线 */
+}
+
+.accordion-header {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header:hover {
+    background-color: var(--hover-gray);
+}
+
+.accordion-header::after {
+    content: '\25BC'; /* 下箭头符号 */
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+}
+
+.accordion-item.active .accordion-header::after {
+    transform: rotate(180deg); /* 箭头旋转180度 */
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    background-color: var(--bg-color);
+    padding: 0 15px;
+}
+
+.accordion-item.active .accordion-content {
+    padding: 10px;
+    max-height: 500px; /* 根据内容调整 */
+}
+
+.accordion-content p {
+    margin: 0px 0 5px 0;
+}
+
+.accordion-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.accordion-content ul li {
+    margin-bottom: 5px;
+}
+
+/* Dark Mode 手风琴样式 */
+body.dark-theme .accordion-header {
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
+}
+
+body.dark-theme .accordion-header:hover {
+    background-color: #555555; /* 自定义悬停颜色 */
+}
+
+body.dark-theme .accordion-header::after {
+    color: var(--link-hover-color);
+}
+
+body.dark-theme .accordion-item.active .accordion-content {
+    background-color: var(--sidebar-bg-color);
+}
+
+body.dark-theme .accordion-content ul {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+
+body.dark-theme .accordion-content ul li {
+    margin-bottom: 5px;
 }
 
 /* 页脚样式 */
