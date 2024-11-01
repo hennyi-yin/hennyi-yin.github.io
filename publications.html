@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="styles.css">
     <!-- 添加 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- 内联主题脚本 -->
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('theme');
+                if (theme) {
+                    document.documentElement.classList.add(theme);
+                }
+            } catch (e) {
+                console.error('Error applying theme:', e);
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- 侧边栏 -->
@@ -22,14 +35,14 @@
             <a href="https://www.linkedin.com/in/hengyi-yin-6b8ab0290/" target="_blank">LinkedIn</a></strong>
         </div>
     </aside>
-
     <header>
         <!-- 导航链接 -->
         <nav class="main-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="cv.html">CV</a></li>
+                <li><a href="cv.html">Curriculum Vitae</a></li>
                 <li><a href="publications.html">Publications</a></li>
+                <li><a href="projects.html">Projects</a></li> <!-- 新增项目链接 -->
             </ul>
         </nav>
         <!-- 主题切换按钮 -->
