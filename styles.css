@@ -51,6 +51,11 @@ body.dark-theme {
     --accordion-hover-bg-color: #555555; /* 自定义悬停颜色 */
 }
 
+/* 禁用过渡效果 */
+.no-transition * {
+    transition: none !important;
+}
+
 /* 基本样式 */
 body {
     font-family: 'Roboto', sans-serif;
@@ -225,7 +230,7 @@ header p {
     cursor: pointer;
     font-size: 1.1em;
     font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -244,7 +249,7 @@ header p {
     margin-left: 10px;
 }
 
-.accordion-item.active .accordion-header::after {
+.accordion-item.open .accordion-header::after {
     transform: rotate(180deg); /* 箭头旋转180度 */
 }
 
@@ -257,7 +262,7 @@ header p {
     transition: max-height 0.5s ease, padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.accordion-item.active .accordion-content {
+.accordion-item.open .accordion-content {
     padding: 15px;
     max-height: 500px; /* 根据内容长度调整 */
 }
@@ -290,57 +295,17 @@ body.dark-theme .accordion-header::after {
     color: var(--link-hover-color);
 }
 
-body.dark-theme .accordion-item.active .accordion-content {
+body.dark-theme .accordion-item.open .accordion-content {
     background-color: var(--sidebar-bg-color);
 }
 
 body.dark-theme .accordion-content ul {
-    list-style-type: disc;
+    list-style-type: circle;
     padding-left: 20px;
 }
 
 body.dark-theme .accordion-content ul li {
     margin-bottom: 5px;
-}
-
-/* 主要内容样式 */
-main {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    box-sizing: border-box;
-}
-
-section {
-    margin-bottom: 40px;
-}
-
-section h2 {
-    border-bottom: 2px solid var(--section-border-color);
-    padding-bottom: 10px;
-    color: var(--link-color);
-    transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-section h3 {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-section ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-section a {
-    color: var(--link-color);
-    text-decoration: none;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-section a:hover {
-    text-decoration: underline;
-    color: var(--link-hover-color);
 }
 
 /* Projects Section */
