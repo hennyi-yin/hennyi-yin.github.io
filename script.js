@@ -90,3 +90,45 @@ document.addEventListener('DOMContentLoaded', function () {
         themeToggleBtn.textContent = 'Switch to Dark Mode';
     }
 });
+
+
+document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const accordionItem = header.parentElement;
+        const accordionContent = header.nextElementSibling;
+
+        if (accordionItem.classList.contains('active')) {
+            // 收起手风琴项
+            accordionItem.classList.remove('active');
+            accordionContent.style.maxHeight = null;
+        } else {
+            // 关闭所有其他展开的项（可选，如果需要允许多个手风琴同时展开可以跳过这部分代码）
+            document.querySelectorAll('.accordion-item.active').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.accordion-content').style.maxHeight = null;
+            });
+
+            // 展开当前手风琴项
+            accordionItem.classList.add('active');
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+        }
+    });
+});
+
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        body.classList.add('dark-theme');
+        themeToggleBtn.textContent = 'Switch to Light Mode';
+    } else {
+        body.classList.remove('dark-theme');
+        themeToggleBtn.textContent = 'Switch to Dark Mode';
+    }
+
+    // 使用延时更新手风琴内容样式
+    setTimeout(() => {
+        document.querySelectorAll('.accordion-item.active .accordion-content').forEach(content => {
+            content.style.backgroundColor = getComputedStyle(body).getPropertyValue('--bg-color');
+            content.style.color = getComputedStyle(body).getPropertyValue('--text-color');
+        });
+    }, 300); // 与 CSS 的 transition 时间一致
+}
