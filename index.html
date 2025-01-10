@@ -7,19 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <!-- 可以添加 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- 内联主题脚本 -->
-    <script>
-        (function() {
-            try {
-                const theme = localStorage.getItem('theme');
-                if (theme) {
-                    document.documentElement.classList.add(theme);
-                }
-            } catch (e) {
-                console.error('Error applying theme:', e);
-            }
-        })();
-    </script>
 </head>
 <body>
     <aside class="sidebar">
@@ -27,7 +14,7 @@
         <h2>Hengyi Yin</h2>
         <p><strong> B.Eng</strong></p>
         <p><strong> McGill University</strong></p>
-        <p><strong> <a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
+        <p><strong> <a href="hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
         <!--<p><strong>Research Website:</strong> <a href="https://your-research-website.com" target="_blank">your-research-website.com</a></p> -->
         <!-- 社交媒体链接 -->
         <div class="social-links">
@@ -47,9 +34,8 @@
         <nav class="main-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="cv.html">Curriculum Vitae</a></li>
+                <li><a href="cv.html">CV</a></li>
                 <li><a href="publications.html">Publications</a></li>
-                <!-- <li><a href="projects.html">Projects</a></li> 新增项目链接 -->
             </ul>
         </nav>
         <!-- 主题切换按钮 -->
@@ -64,16 +50,17 @@
             <!-- 关于我 -->
             <section id="about">
                 <h2>About Me</h2>
-                <p>My name is Hengyi Yin and welcome to my personal website!</p>
+                <p>Hi! I'm Hengyi. An AI Engineer specializing in Machine Learning, Deep Learning, and Natural Language Processing with experience in
+                    developing and deploying state-of-the-art language models. I love Piano, animes and anything may change the world!</p>
             </section>
 
             <!-- 研究方向 -->
             <section id="research">
                 <h2>Research Interests</h2>
                 <ul>
+                    <li>Machine learning</li>
                     <li>Deep learning</li>
-                    <li>Natural Language Process</li>
-                    <li>Reinforce learning</li>
+                    <li>Natural Language Processing</li>
                 </ul>
             </section>
 
