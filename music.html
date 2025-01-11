@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Room - Hengyi Yin</title>
+
+    <!-- 提前应用存储的主题，防止闪烁 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light-theme';
+            document.body.classList.add(savedTheme);
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- 侧边栏 -->
@@ -30,7 +37,6 @@
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="publications.html">Publications</a></li>
                 <li><a href="music.html">Music Room</a></li>
-
             </ul>
         </nav>
         <!-- 主题切换按钮 -->
@@ -43,21 +49,83 @@
             <!-- 音乐室部分 -->
             <section id="music-room">
                 <h2>Music Room</h2>
-                <p>Welcome to my Music Room! Enjoy the music while cherry blossoms fall. Click on a blossom to make it disappear!</p>
-                
-                <!-- 嵌入 Spotify 播放器 -->
-                <div class="spotify-player">
-                    <iframe 
-                        style="border-radius:12px" 
-                        src="https://open.spotify.com/embed/playlist/2ZbY6y50PRCkKovHsBVIXd?utm_source=generator" 
-                        width="100%" 
-                        height="352" 
-                        frameborder="0" 
-                        allowfullscreen="" 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy">
-                    </iframe>
+                <p></p>
+                <div class="custom-mp3-player">
+                    <!--
+                    <div class="player-header">
+                        <img src="images\wallhaven-o5mowl.jpg" alt="Album Cover">
+
+                    </div>
+                    -->
+                  
+                    <div class="player-body">
+                        <audio id="audio-player" controls controlsList="nodownload noplaybackrate">
+                            <source id="audio-source" src="musics\C418 - Mice on Venus - Minecraft Volume Alpha.mp3" type="audio/mpeg">
+                        </audio>
+                        
+                        <ul id="playlist">
+                            <li data-src="musics\C418 - Mice on Venus - Minecraft Volume Alpha.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                                <span>Mice On Venus</span>
+                                <span>04:41</span>
+                            </li>
+                            <li data-src="musics\Pink Floyd - Wish You Were Here.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                                <span>Wish You Were Here</span>
+                                <span>04:53</span>
+                            </li>
+                            <li data-src="musics\Billy Joel - Piano Man (Audio).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-bottom: 1px solid #ddd;">
+                                <span>Piano Man</span>
+                                <span>05:40</span>
+                            </li>
+                            <li data-src="musics\La Vie En Rose.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>La Vie En Rose</span>
+                                <span>03:07</span>
+                            </li>
+                            <li data-src="musics\陶喆  寂寞的季節 (HQ).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>寂寞的季節</span>
+                                <span>03:35</span>
+                            </li>
+                            <li data-src="musics\Satie - Gymnopédie No. 1.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Gymnopédie No. 1.mp3</span>
+                                <span>04:04</span>
+                            </li>
+                            <li data-src="musics\Just the Two of Us (feat. Bill Withers).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Just the Two of Us</span>
+                                <span>07:18</span>
+                            </li>
+                            <li data-src="musics\Hikaru Shirosu - Waltz No. 1, Op. 6 'Collapse'  performed on piano by Vikakim..mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Waltz No. 1, Op. 6 'Collapse'</span>
+                                <span>02:01</span>
+                            </li>
+                            <li data-src="musics\Bob Dylan - Knockin' On Heaven's Door (Official Audio).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Knockin' On Heaven's Door</span>
+                                <span>02:31</span>
+                            </li>
+                            <li data-src="musics\Bob Dylan - Hurricane (Official Audio).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Hurricane</span>
+                                <span>08:34</span>
+                            </li>
+                            <li data-src="musics\Fairy Fountain.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Fairy Fountain</span>
+                                <span>01:03</span>
+                            </li>
+                            <li data-src="musics\Let It Be (Remastered 2009).mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Let It Be</span>
+                                <span>04:03</span>
+                            </li>
+                            <li data-src="musics\Ballerina.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Ballerina</span>
+                                <span>01:11</span>
+                            </li>
+                            <li data-src="musics\Breakfast at Tiffany's (39) Movie CLIP - Moon River (1961) HD.mp3" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer;">
+                                <span>Moon River</span>
+                                <span>02:15</span>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
                 </div>
+
 
                 <!-- 樱花动画 -->
                 <canvas id="sakura-canvas"></canvas>
@@ -66,243 +134,204 @@
     </div>
 
     <!-- JavaScript 文件 -->
-     
-        <!-- 樱花动画脚本 -->
-        <script>
+    <script src="script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('sakura-canvas');
+    canvas.style.pointerEvents = 'auto'; // 确保 Canvas 可以接收点击事件
+    const ctx = canvas.getContext('2d');
+
+    // 设置 canvas 尺寸，使其始终覆盖整个窗口
+    function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    setCanvasSize();
+    window.addEventListener('resize', setCanvasSize); // 窗口大小改变时动态调整 Canvas
+
+    // 粒子类：每个粒子代表散开效果的一部分
+    class Particle {
+        constructor(x, y, size) {
+            this.x = x; // 粒子初始位置 x
+            this.y = y; // 粒子初始位置 y
+            this.size = size * 1; // 粒子大小（与点击的樱花大小相关）
+            this.angle = Math.random() * Math.PI * 2; // 粒子初始移动方向
+            this.speed = Math.random() * 2 ; // 粒子速度（可调整以改变散开效果）
+            this.velocity = {
+                x: Math.cos(this.angle) * this.speed, // x 方向速度
+                y: Math.sin(this.angle) * this.speed  // y 方向速度
+            };
+            this.alpha = 1; // 粒子透明度（用于消失动画）
+            this.rotation = Math.random() * 360; // 粒子初始旋转角度
+            this.rotationSpeed = (Math.random() - 0.5) * 5; // 粒子旋转速度
+        }
+
+        update() {
+            this.x += this.velocity.x; // 更新位置 x
+            this.y += this.velocity.y; // 更新位置 y
+            this.velocity.y += 0.1; // 模拟重力效果
+            this.rotation += this.rotationSpeed; // 更新旋转角度
+            this.alpha -= 0.02; // 渐渐透明，最终消失
+            return this.alpha > 0; // 粒子是否仍然可见
+        }
+
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate((this.rotation * Math.PI) / 180);
+            ctx.globalAlpha = this.alpha; // 应用透明度
+
+            // 绘制花瓣形状
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(
+                this.size * 0.5, -this.size * 0.6,
+                this.size * 1.2, -this.size * 0.6,
+                this.size * 1.4, 0
+            );
+            ctx.bezierCurveTo(
+                this.size * 1.2, this.size * 0.6,
+                this.size * 0.5, this.size * 0.6,
+                0, 0
+            );
             
-            // 获取 canvas 元素并设置上下文
-            const canvas = document.getElementById('sakura-canvas');
-            const ctx = canvas.getContext('2d');
+            // 渐变填充
+            const gradient = ctx.createRadialGradient(
+                this.size * 0.5, 0, 0,
+                this.size * 0.5, 0, this.size * 1.4
+            );
+            gradient.addColorStop(0, '#ffd7e5'); // 中心颜色
+            gradient.addColorStop(0.7, '#ffb7d5'); // 边缘颜色
 
-            // 设置 canvas 尺寸和样式
-            function setCanvasSize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.strokeStyle = '#ffb7d5'; // 边框颜色
+            ctx.lineWidth = 0.3; // 边框宽度
+            ctx.stroke();
+
+            ctx.restore();
+        }
+    }
+
+    // 樱花类：负责花瓣的下落效果
+    class Sakura {
+        constructor() {
+            this.reset();
+            this.y = Math.random() * canvas.height; // 初始化位置随机分布在屏幕内
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width; // 随机 x 坐标
+            this.y = -20; // 初始 y 坐标（屏幕顶部）
+            this.size = Math.random() * 4 + 3; // 花瓣大小（范围可调整）
+            this.speed = Math.random() * 1.5; // 下落速度（可调整以改变动态效果）
+            this.angle = Math.random() * 360; // 初始旋转角度
+            this.spinSpeed = (Math.random() - 0.5) * 2; // 旋转速度（可调整花瓣旋转的快慢）
+            this.swingRange = Math.random() * 1.5; // 左右摆动幅度
+            this.phase = Math.random() * Math.PI * 2; // 用于左右摆动
+            this.clickRadius = 40; // 点击判定半径
+        }
+
+        update() {
+            this.y += this.speed; // 下落
+            this.x += Math.sin(this.phase + this.y * 0.01) * this.swingRange; // 左右摆动
+            this.angle += this.spinSpeed; // 旋转
+
+            if (this.y > canvas.height) {
+                this.reset(); // 超出屏幕后重置
             }
-            setCanvasSize();
+        }
 
-            // 确保canvas可以接收点击事件
-            canvas.style.pointerEvents = 'auto';
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate((this.angle * Math.PI) / 180);
+            for (let i = 0; i < 5; i++) { // 绘制 5 个花瓣
+                ctx.save();
+                ctx.rotate((i * 72) * Math.PI / 180); // 每 72 度旋转一次
 
-            // 粒子类
-            class Particle {
-                constructor(x, y, size) {
-                    this.x = x;
-                    this.y = y;
-                    this.size = size * 0.5;
-                    this.angle = Math.random() * Math.PI * 2;
-                    this.speed = Math.random() * 3 + 2; // 略微增加散开速度
-                    this.velocity = {
-                        x: Math.cos(this.angle) * this.speed,
-                        y: Math.sin(this.angle) * this.speed
-                    };
-                    this.alpha = 1;
-                    this.rotation = Math.random() * 360;
-                    this.rotationSpeed = (Math.random() - 0.5) * 5;
-                }
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(
+                    this.size * 0.5, -this.size * 0.6,
+                    this.size * 1.2, -this.size * 0.6,
+                    this.size * 1.4, 0
+                );
+                ctx.bezierCurveTo(
+                    this.size * 1.2, this.size * 0.6,
+                    this.size * 0.5, this.size * 0.6,
+                    0, 0
+                );
 
-                update() {
-                    this.x += this.velocity.x;
-                    this.y += this.velocity.y;
-                    this.velocity.y += 0.1;
-                    this.rotation += this.rotationSpeed;
-                    this.alpha -= 0.02;
-                    return this.alpha > 0;
-                }
+                // 渐变填充
+                const gradient = ctx.createRadialGradient(
+                    this.size * 0.5, 0, 0,
+                    this.size * 0.5, 0, this.size * 1.4
+                );
+                gradient.addColorStop(0, '#ffd7e5');
+                gradient.addColorStop(0.7, '#ffb7d5');
 
-                draw() {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate((this.rotation * Math.PI) / 180);
-                    ctx.globalAlpha = this.alpha;
-                    
-                    // 绘制单个花瓣形状的粒子
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    // 右侧曲线
-                    ctx.bezierCurveTo(
-                        this.size * 0.5, -this.size * 0.6,
-                        this.size * 1.2, -this.size * 0.6,
-                        this.size * 1.4, 0
-                    );
-                    // 左侧曲线
-                    ctx.bezierCurveTo(
-                        this.size * 1.2, this.size * 0.6,
-                        this.size * 0.5, this.size * 0.6,
-                        0, 0
-                    );
-                    
-                    // 设置渐变色
-                    const gradient = ctx.createRadialGradient(
-                        this.size * 0.5, 0, 0,
-                        this.size * 0.5, 0, this.size * 1.4
-                    );
-                    gradient.addColorStop(0, '#ffd7e5');
-                    gradient.addColorStop(0.7, '#ffb7d5');
-                    
-                    ctx.fillStyle = gradient;
-                    ctx.fill();
-                    ctx.strokeStyle = '#ffb7d5';
-                    ctx.lineWidth = 0.3;
-                    ctx.stroke();
-                    
-                    ctx.restore();
-                }
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.strokeStyle = '#ffb7d5';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+
+                ctx.restore();
             }
+            ctx.restore();
+        }
 
-            // 樱花类
-            class Sakura {
-                constructor() {
-                    this.reset();
-                    this.y = Math.random() * canvas.height;
+        isClicked(mouseX, mouseY) {
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < this.clickRadius; // 检查是否在点击范围内
+        }
+    }
+
+    let sakuras = Array.from({ length: 100 }, () => new Sakura()); // 初始化 100 个樱花对象
+    let particles = []; // 存储粒子效果
+
+    // 点击事件：点击樱花时生成粒子效果
+    canvas.addEventListener('click', function (e) {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+        const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+        sakuras.forEach((sakura, index) => {
+            if (sakura.isClicked(mouseX, mouseY)) {
+                for (let i = 0; i < 10; i++) { // 每次生成 10 个粒子
+                    particles.push(new Particle(sakura.x, sakura.y, sakura.size));
                 }
-
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = -10;
-                    this.size = Math.random() * 4 + 3;
-                    this.speed = Math.random() * 2 ;
-                    this.angle = Math.random() * 360;
-                    this.spinSpeed = (Math.random() - 0.5) * 2;
-                    this.swingRange = Math.random() * 2;
-                    this.phase = Math.random() * Math.PI * 2;
-                    // 添加点击判定范围
-                    this.clickRadius = 20; // 固定的点击判定范围
-                }
-
-                update() {
-                    this.y += this.speed;
-                    this.x += Math.sin(this.phase + this.y * 0.01) * this.swingRange;
-                    this.angle += this.spinSpeed;
-
-                    if (this.y > canvas.height) {
-                        this.reset();
-                    }
-                }
-                
-                draw() {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate((this.angle * Math.PI) / 180);
-                    // 如果需要，可以显示点击判定区域（调试用）
-                    /*
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.clickRadius, 0, Math.PI * 2);
-                    ctx.strokeStyle = 'rgba(255,0,0,0.1)';
-                    ctx.stroke();
-                    */
-                    // 绘制花瓣
-                    for (let i = 0; i < 5; i++) {
-                        ctx.save();
-                        ctx.rotate((i * 72) * Math.PI / 180);
-                            
-                        // 绘制单个花瓣
-                        ctx.beginPath();
-                        ctx.moveTo(0, 0);
-                        // 右侧曲线
-                        ctx.bezierCurveTo(
-                            this.size * 0.5, -this.size * 0.6,  // 控制点1
-                            this.size * 1.2, -this.size * 0.6,  // 控制点2
-                            this.size * 1.4, 0                   // 终点
-                        );
-                        // 左侧曲线
-                        ctx.bezierCurveTo(
-                            this.size * 1.2, this.size * 0.6,   // 控制点1
-                            this.size * 0.5, this.size * 0.6,   // 控制点2
-                            0, 0                                 // 终点
-                        );
-                            
-                        // 设置花瓣渐变色
-                        const gradient = ctx.createRadialGradient(
-                            this.size * 0.5, 0, 0,
-                            this.size * 0.5, 0, this.size * 1.4
-                        );
-                        gradient.addColorStop(0, '#ffd7e5');    // 花瓣中心色
-                        gradient.addColorStop(0.7, '#ffb7d5');  // 花瓣边缘色
-                            
-                        ctx.fillStyle = gradient;
-                        ctx.fill();
-                        ctx.strokeStyle = '#ffb7d5';
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                        
-                        ctx.restore();    
-                    }
-                        
-                        // 添加花心
-                        ctx.beginPath();
-                        ctx.arc(0, 0, this.size * 0.2, 0, Math.PI * 2);
-                        ctx.fillStyle = '#fff0f5';
-                        ctx.fill();
-                        
-                        ctx.restore();    
-                    }    
-
-                // 简化的点击检测
-                isClicked(mouseX, mouseY) {
-                    const dx = mouseX - this.x;
-                    const dy = mouseY - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    return distance < this.clickRadius;
-                }
+                sakuras.splice(index, 1); // 移除被点击的樱花
+                sakuras.push(new Sakura()); // 添加新的樱花
             }
+        });
+    });
 
-            // 创建樱花和粒子数组
-            let sakuras = Array.from({ length: 70 }, () => new Sakura());
-            let particles = [];
+    // 动画主循环
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除画布
+        sakuras.forEach((sakura) => {
+            sakura.update(); // 更新樱花位置
+            sakura.draw(); // 绘制樱花
+        });
 
-            // 简化的点击处理
-            canvas.addEventListener('click', function(e) {
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
-                const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
-                
-                // 检查每个樱花
-                sakuras.forEach((sakura, index) => {
-                    if (sakura.isClicked(mouseX, mouseY)) {
-                        // 创建更多的散开粒子
-                        for (let i = 0; i < 10; i++) { // 增加粒子数量
-                            particles.push(new Particle(sakura.x, sakura.y, sakura.size));
-                        }
-                        
-                        // 移除点击的樱花并添加新的
-                        sakuras.splice(index, 1);
-                        sakuras.push(new Sakura());
-                    }
-                });
-            });
-
-            // 动画循环
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // 更新和绘制樱花
-                sakuras.forEach(sakura => {
-                    sakura.update();
-                    sakura.draw();
-                });
-
-                // 更新和绘制粒子
-                particles = particles.filter(particle => {
-                    const isAlive = particle.update();
-                    if (isAlive) {
-                        particle.draw();
-                    }
-                    return isAlive;
-                });
-                
-                requestAnimationFrame(animate);
+        particles = particles.filter((particle) => {
+            const isAlive = particle.update(); // 更新粒子状态
+            if (isAlive) {
+                particle.draw(); // 绘制粒子
             }
+            return isAlive; // 移除透明度为 0 的粒子
+        });
 
-            // 窗口大小改变时重置 canvas 尺寸
-            window.addEventListener('resize', setCanvasSize);
+        requestAnimationFrame(animate); // 请求下一帧动画
+    }
 
-            // 启动动画
-            animate();
-            
-        </script>
+    animate(); // 启动动画
+});
 
-
-        
+    </script>
 </body>
 </html>

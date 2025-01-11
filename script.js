@@ -1,109 +1,137 @@
 // script.js
 
+// ========== 提前应用存储的主题 ==========
+(function () {
+  const savedTheme = localStorage.getItem('theme') || 'light-theme';
+  document.body.classList.add(savedTheme);
+})();
+
 // ========== 主题切换部分 ==========
-const themeToggleBtn = document.getElementById('theme-toggle');
-const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggleBtn = document.getElementById('theme-toggle');
 
-// 读取本地存储的主题，没有则默认为 'light-theme'
-const savedTheme = localStorage.getItem('theme') || 'light-theme';
-// 给 body 添加初始主题类
-body.classList.add(savedTheme);
+  // 初始化主题
+  const currentTheme = localStorage.getItem('theme') || 'light-theme';
+  document.body.classList.add(currentTheme);
 
-// 初始化按钮文本
-themeToggleBtn.textContent = (savedTheme === 'dark-theme')
-  ? 'Switch to Light Mode'
-  : 'Switch to Dark Mode';
-
-// 点击按钮时切换主题
-themeToggleBtn.addEventListener('click', () => {
-  const isDark = body.classList.contains('dark-theme');
-  // 确定新主题
-  const newTheme = isDark ? 'light-theme' : 'dark-theme';
-
-  // 移除旧主题类，添加新主题类
-  body.classList.remove('light-theme', 'dark-theme');
-  body.classList.add(newTheme);
+  // 延迟启用过渡，避免初次加载时的闪烁
+  setTimeout(() => {
+      document.body.classList.add('theme-transition');
+  }, 50); // 确保页面渲染完成后启用
 
   // 更新按钮文本
-  themeToggleBtn.textContent = (newTheme === 'dark-theme')
-    ? 'Switch to Light Mode'
-    : 'Switch to Dark Mode';
+  function updateToggleButton(theme) {
+      themeToggleBtn.textContent = theme === 'dark-theme' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  }
 
-  // 存储到 localStorage
-  localStorage.setItem('theme', newTheme);
+  updateToggleButton(currentTheme);
+
+  // 切换主题
+  themeToggleBtn.addEventListener('click', () => {
+      const isDarkTheme = document.body.classList.contains('dark-theme');
+      const newTheme = isDarkTheme ? 'light-theme' : 'dark-theme';
+
+      document.body.classList.remove('light-theme', 'dark-theme');
+      document.body.classList.add(newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateToggleButton(newTheme);
+  });
 });
 
-
 // ========== 樱花动画部分 ==========
-
-// 获取 canvas
 const canvas = document.getElementById('sakura-canvas');
 const ctx = canvas.getContext('2d');
 
-// 调整 canvas 尺寸
 function setCanvasSize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 setCanvasSize();
-window.addEventListener('resize', setCanvasSize);
 
-// 定义一个 Sakura 类
+// 使用防抖处理 resize 事件
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(setCanvasSize, 200);
+});
+
+// 樱花类
 class Sakura {
   constructor() {
-    this.reset();
+      this.reset();
   }
 
   reset() {
-    // 出现在顶部上方随机位置
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * -canvas.height;
-    // 大小、速度等
-    this.size = Math.random() * 5 + 2;
-    this.speed = Math.random() * 3 + 1;
-    this.opacity = Math.random() * 0.8 + 0.2;
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * -canvas.height;
+      this.size = Math.random() * 5 + 2;
+      this.speed = Math.random() * 3 + 1;
+      this.opacity = Math.random() * 0.8 + 0.2;
   }
 
   update() {
-    this.y += this.speed;
-    if (this.y > canvas.height) {
-      this.reset();
-    }
+      this.y += this.speed;
+      if (this.y > canvas.height) this.reset();
   }
 
   draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`;
-    ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`;
+      ctx.fill();
   }
 }
 
-// 创建樱花数组
-let sakuraArray = [];
-for (let i = 0; i < 80; i++) {
-  sakuraArray.push(new Sakura());
-}
+const sakuraArray = Array.from({ length: 80 }, () => new Sakura());
 
-// 动画循环
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  sakuraArray.forEach(sakura => {
-    sakura.update();
-    sakura.draw();
+  sakuraArray.forEach((sakura) => {
+      sakura.update();
+      sakura.draw();
   });
   requestAnimationFrame(animate);
 }
 animate();
 
-// 点击事件：移除花瓣
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
 
-  sakuraArray = sakuraArray.filter((sakura) => {
-    const dist = Math.hypot(mouseX - sakura.x, mouseY - sakura.y);
-    return dist > sakura.size;
+  sakuraArray.filter((sakura) => {
+      const dist = Math.hypot(mouseX - sakura.x, mouseY - sakura.y);
+      return dist > sakura.size;
   });
+});
+
+// ========== 音乐播放器部分 ==========
+const audioPlayer = document.getElementById('audio-player');
+const playlist = document.getElementById('playlist');
+const playlistItems = playlist.querySelectorAll('li');
+
+if (playlistItems.length > 0) {
+  playlistItems[0].classList.add('active');
+}
+
+const audioSource = document.getElementById('audio-source');
+
+function playSong(songItem) {
+  const songSrc = songItem.getAttribute('data-src');
+  audioSource.src = songSrc;
+  audioPlayer.load();
+  audioPlayer.play();
+
+  playlistItems.forEach((item) => item.classList.remove('active'));
+  songItem.classList.add('active');
+}
+
+playlistItems.forEach((item) => {
+  item.addEventListener('click', () => playSong(item));
+});
+
+audioPlayer.addEventListener('ended', () => {
+  const currentIndex = Array.from(playlistItems).findIndex((item) => item.classList.contains('active'));
+  const nextIndex = (currentIndex + 1) % playlistItems.length;
+  if (nextIndex !== -1) playSong(playlistItems[nextIndex]);
 });

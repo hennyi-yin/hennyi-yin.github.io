@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Homepage - Hengyi Yin</title>
+    
+    <!-- 提前应用存储的主题，防止闪烁 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light-theme';
+            document.body.classList.add(savedTheme);
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
     <!-- 可以添加 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -81,6 +89,6 @@
     </footer>
 -->
     <!-- JavaScript 脚本 -->
-    <script src="script.js"></script>
+    <script src="script.js"> </script>
 </body>
 </html>

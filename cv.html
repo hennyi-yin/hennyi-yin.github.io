@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae - Hengyi Yin</title>
+
+    <!-- 提前应用存储的主题，防止闪烁 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light-theme';
+            document.body.classList.add(savedTheme);
+        })();
+    </script>
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <!-- 侧边栏部分 -->
     <aside class="sidebar">
         <img src="images/profile.jpeg" alt="Profile Picture" class="profile-pic">
@@ -105,6 +115,12 @@
 
     <!-- JavaScript 引入 -->
     <script>
+            // 提前读取存储的主题并应用
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'light-theme';
+        document.documentElement.className = savedTheme;
+    })();
+    
     // 手风琴展开与关闭功能
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
@@ -123,9 +139,7 @@
         });
     });
 
-    // 主题切换功能
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
+
 
     function applyTheme(theme) {
         if (theme === 'dark') {
@@ -144,17 +158,38 @@
         });
     }
 
-    // 检查用户首选的主题
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme);
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
 
+    // 读取本地存储的主题，没有则默认为 'light-theme'
+    const savedTheme = localStorage.getItem('theme') || 'light-theme';
+    // 给 body 添加初始主题类
+    body.classList.add(savedTheme);
+
+    // 初始化按钮文本
+    themeToggleBtn.textContent = (savedTheme === 'dark-theme')
+    ? 'Switch to Light Mode'
+    : 'Switch to Dark Mode';
+
+    // 点击按钮时切换主题
     themeToggleBtn.addEventListener('click', () => {
-        const newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
-        applyTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
+    const isDark = body.classList.contains('dark-theme');
+    // 确定新主题
+    const newTheme = isDark ? 'light-theme' : 'dark-theme';
+
+    // 移除旧主题类，添加新主题类
+    body.classList.remove('light-theme', 'dark-theme');
+    body.classList.add(newTheme);
+
+    // 更新按钮文本
+    themeToggleBtn.textContent = (newTheme === 'dark-theme')
+        ? 'Switch to Light Mode'
+        : 'Switch to Dark Mode';
+
+    // 存储到 localStorage
+    localStorage.setItem('theme', newTheme);
     });
 
-    </script>
     </script>
 </body>
 </html>
