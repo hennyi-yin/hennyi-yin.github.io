@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Homepage - Hengyi Yin</title>
+    
+    <!-- 提前应用存储的主题，防止闪烁 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light-theme';
+            document.body.classList.add(savedTheme);
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
     <!-- 可以添加 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -36,6 +44,8 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="publications.html">Publications</a></li>
+                <li><a href="music.html">Music Room</a></li>
+
             </ul>
         </nav>
         <!-- 主题切换按钮 -->
@@ -69,7 +79,8 @@
                 <h2>Contact</h2>
                 <p>Email: <a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></p>
                 <!-- <p>Research Website: <a href="https://your-research-website.com" target="_blank">your-research-website.co</a></p> -->
-            </section>
+            
+            
         </main>
     </div>
 <!--
@@ -78,6 +89,6 @@
     </footer>
 -->
     <!-- JavaScript 脚本 -->
-    <script src="script.js"></script>
+    <script src="script.js"> </script>
 </body>
 </html>

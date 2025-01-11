@@ -25,10 +25,31 @@
     --button-text-color: var(--primary-blue);
     --button-hover-bg-color: var(--hover-gray);
     --section-border-color: var(--link-color);
+    
+    /* 过渡速度变量 */
+    --transition-speed: 0s; /* 初次加载禁用过渡 */
 }
 
+body.theme-transition {
+    --transition-speed: 0.3s; /* 启用过渡 */
+}
+
+body.theme-loaded {
+    --transition-speed: 0.3s; /* 加载完成后启用过渡 */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Dark Theme */
 body.dark-theme {
-    /* 夜间主题 */
     --bg-color: var(--very-dark-gray);
     --text-color: var(--light-text);
     --header-bg-color: var(--very-dark-gray);
@@ -45,16 +66,6 @@ body.dark-theme {
     --section-border-color: var(--light-text);
 }
 
-/* 基本样式 */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
 
 /* 头部样式 */
 header {
@@ -64,7 +75,7 @@ header {
     color: var(--header-text-color);
     position: relative;
     z-index: 900; /* 确保头部在侧边栏下方 */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -75,6 +86,7 @@ header {
     text-align: center;
     display: flex;
     align-items: center;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .header-content .profile-pic {
@@ -121,6 +133,12 @@ header p {
 }
 
 /* 主题切换按钮样式 */
+/* 定义统一的过渡时间 */
+:root {
+    --transition-speed: 0.3s; /* 统一的过渡时间 */
+}
+
+
 #theme-toggle {
     position: absolute;
     top: 20px;
@@ -232,25 +250,66 @@ section ul {
     padding-left: 20px;
 }
 
+/* 默认链接样式 */
 section a {
     color: var(--link-color);
     text-decoration: none;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
+/* 悬停样式 */
 section a:hover {
     text-decoration: underline;
     color: var(--link-hover-color);
 }
 
-/* 手风琴样式 */
-.accordion-header, .accordion-content {
-    transition: background-color 0.3s, color 0s; /* 确保颜色平滑过渡 */
+/* 键盘导航时的焦点样式 */
+section a:focus {
+    outline: 2px dashed var(--link-hover-color);
+    outline-offset: 2px;
 }
 
-body.dark-theme .accordion-header,
+/* 夜间模式下的链接样式 */
+body.dark-theme section a {
+    color: var(--link-color); /* 夜间模式的链接颜色 */
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+body.dark-theme section a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color); /* 夜间模式的悬停颜色 */
+}
+
+body.dark-theme section a:focus {
+    outline: 2px dashed var(--link-hover-color);
+    outline-offset: 2px;
+}
+
+
+/* 手风琴样式 */
+
+.accordion-content {
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, max-height 0.3s ease, padding 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+    color: var(--text-color); /* 动态使用变量 */
+    background-color: var(--bg-color);
+    padding: 0 15px;
+}
+
 body.dark-theme .accordion-content {
-    transition: background-color 0.3s, color 0s; /* 与日间模式保持一致 */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-header {
+    transition: background-color var(--transition-speed), color var(--transition-speed); /* 确保颜色平滑过渡 */
+}
+
+body.dark-theme .accordion-header {
+    transition: background-color var(--transition-speed), color var(--transition-speed); /* 与日间模式保持一致 */
 }
 
 .accordion-item {
@@ -290,12 +349,6 @@ body.dark-theme .accordion-content {
     transform: rotate(180deg); /* 箭头旋转180度 */
 }
 
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    background-color: var(--bg-color);
-    padding: 0 15px;
-}
 
 .accordion-item.active .accordion-content {
     padding: 10px;
@@ -333,6 +386,8 @@ body.dark-theme .accordion-item.active .accordion-content {
     background-color: var(--sidebar-bg-color);
 }
 
+
+
 body.dark-theme .accordion-content ul {
     list-style-type: circle;
     padding-left: 20px;
@@ -341,6 +396,162 @@ body.dark-theme .accordion-content ul {
 body.dark-theme .accordion-content ul li {
     margin-bottom: 5px;
 }
+
+
+#music-room {
+    text-align: center;
+    margin: 40px auto;
+}
+
+
+
+#sakura-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 允许点击穿透到其他元素 */
+    z-index: -1; /* 确保 canvas 在内容后面 */
+}
+
+#music-room {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+/* mp3播放器 */
+/* 美化播放列表 */
+/* 基础样式 */
+.custom-mp3-player {
+    width: 80%; /* 默认宽度为屏幕宽度的 80% */
+    max-width: 1200px; /* 限制最大宽度 */
+    min-width: 300px; /* 限制最小宽度 */
+    margin: 20px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--sidebar-bg-color);
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 头部样式 */
+.player-header {
+    background-color: #8e2b85;
+    color: var(--sidebar-bg-color);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.player-header img {
+    width: 1024px;
+    height: 432px;
+    border-radius: 8px;
+    margin-right: 20px;
+    
+}
+
+.player-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 播放器主体 */
+.player-body {
+    padding: 20px;
+    overflow-y: auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.player-body audio {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 播放列表 */
+#playlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#playlist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+#playlist li:hover {
+    transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: var(--sidebar-bg-color);
+}
+
+#playlist li.active {
+    
+    background-color: var(--sidebar-bg-color);
+    font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .custom-mp3-player {
+        width: 95%; /* 在小屏幕下宽度调整为屏幕的 95% */
+    }
+
+    .player-header img {
+        width: 76px; /* 图片缩小 */
+        height: 43px;
+    }
+
+    .player-header h3 {
+        font-size: 1.2rem; /* 标题字体缩小 */
+    }
+
+    .player-body {
+        padding: 10px; /* 减少内边距 */
+    }
+
+    #playlist li {
+        padding: 8px; /* 减少列表项的高度 */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-mp3-player {
+        width: 100%; /* 极小屏幕下宽度占满 */
+        margin: 10px auto;
+    }
+
+    .player-header {
+        flex-direction: column; /* 图片和标题改为上下布局 */
+        align-items: flex-start;
+    }
+
+    .player-header img {
+        margin-right: 0; /* 去除图片右边距 */
+        margin-bottom: 10px;
+    }
+
+    .player-header h3 {
+        font-size: 1rem; /* 标题字体进一步缩小 */
+    }
+}
+
+
+
 
 /* 页脚样式 */
 footer {
@@ -390,5 +601,6 @@ footer {
 
     header {
         margin-left: 0; /* 移除左边距 */
+        
     }
 }
