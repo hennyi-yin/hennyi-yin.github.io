@@ -135,3 +135,6 @@ audioPlayer.addEventListener('ended', () => {
   const nextIndex = (currentIndex + 1) % playlistItems.length;
   if (nextIndex !== -1) playSong(playlistItems[nextIndex]);
 });
+
+
+

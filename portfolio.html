@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Hengyi Yin</title>
+    
+    <!-- Apply the saved theme in advance to prevent flickering -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light-theme';
+            document.documentElement.classList.add(savedTheme);
+        })();
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Sidebar Section -->
+    <aside class="sidebar">
+        <img src="images/profile.jpeg" alt="Profile Picture" class="profile-pic">
+        <h2>Hengyi Yin</h2>
+        <p><strong>B.Eng</strong></p>
+        <p><strong>McGill University</strong></p>
+        <p><strong><a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <strong>
+                <a href="https://github.com/hennyi-yin" target="_blank">GitHub</a> |
+                <a href="https://www.linkedin.com/in/hengyi-yin-6b8ab0290/" target="_blank">LinkedIn</a>
+            </strong>
+        </div>
+    </aside>
+
+    <!-- Header Section -->
+    <header>
+        <!-- Navigation Links -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="music.html">Music Room</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+            </ul>
+        </nav>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle">Switch to Dark Mode</button>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Portfolio Section -->
+            <section id="portfolio">
+                <h2>My Portfolio</h2>
+                
+                <!-- Projects Accordion -->
+                <div class="accordion">
+                    <!-- Project 1: Maestro -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">Maestro</button>
+                        <div class="accordion-content">
+                            <!-- <img src="images/maestro.jpg" alt="Maestro Project Image" class="project-img"> -->
+                            <p><strong>Project Description:</strong> Maestro is an innovative workflow automation tool designed to enhance productivity by leveraging advanced machine learning algorithms. It intelligently automates repetitive tasks, integrates seamlessly with various APIs, and provides insightful analytics to help users make data-driven decisions.</p>
+                            
+                            <p><strong>Technologies Used:</strong></p>
+                            <ul>
+                                <li>Retrieval-Augmented Generation (RAG)</li>
+                                <li>LangChain</li>
+                                <li>Prompt Engineering</li>
+                                <li>Python</li>
+                                <li>TensorFlow</li>
+                                <li>Node.js</li>
+                                <li>Docker</li>
+                                <li>AWS (EC2, S3)</li>
+                            </ul>
+                            
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Intelligent task automation using RAG and LangChain</li>
+                                <li>Seamless integration with various APIs</li>
+                                <li>Customizable workflows through advanced prompt engineering</li>
+                                <li>Real-time analytics dashboard providing actionable insights</li>
+                                <li>Scalable architecture deployed on AWS using Docker containers</li>
+                            </ul>
+                            
+                            <p>
+                                <a href="https://devpost.com/software/maestro-qs6gr1" target="_blank">View on Devpost</a> |
+                                <a href="https://github.com/Blacklotus88888/CodeJam14-CloseAI" target="_blank">View on GitHub</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: OnlyTrades -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">OnlyTrades</button>
+                        <div class="accordion-content">
+                            <!-- <img src="images/onlytrades.jpg" alt="OnlyTrades Project Image" class="project-img"> -->
+                            <p><strong>Project Description:</strong> OnlyTrades is a secure and transparent trading platform that utilizes advanced machine learning techniques for stock price prediction analysis. The platform leverages historical data and real-time analytics to provide users with accurate trading insights.</p>
+                            
+                            <p><strong>Technologies Used:</strong></p>
+                            <ul>
+                                <li>Long Short-Term Memory (LSTM)</li>
+                                <li>XGBoost</li>
+                                <li>Attention Mechanisms</li>
+                                <li>Python</li>
+                                <li>TensorFlow</li>
+                                <li>PostgreSQL</li>
+                                <li>Google Cloud Platform</li>
+                            </ul>
+                            
+                            <p><strong>Key Features:</strong></p>
+                            <ul>
+                                <li>Advanced stock price prediction using LSTM, XGBoost, and Attention Mechanisms</li>
+                                <li>Real-time transaction tracking and notifications</li>
+                                <li>Secure user authentication with OAuth 2.0</li>
+                                <li>Comprehensive dashboard for managing trades and assets</li>
+                                <li>Scalable deployment using Kubernetes on Google Cloud Platform</li>
+                            </ul>
+                            
+                            <p>
+                                <a href="https://devpost.com/software/onlytrades-i60wev" target="_blank">View on Devpost</a> |
+                                <a href="https://github.com/OnlyTrades/OnlyTrades" target="_blank">View on GitHub</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- You can continue adding more projects here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Hengyi Yin. All rights reserved.</p>
+    </footer>
+    
+    <!-- JavaScript Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const accordionItem = header.parentElement;
+                const accordionContent = header.nextElementSibling;
+
+                // Toggle active class
+                accordionItem.classList.toggle('active');
+
+                if (accordionItem.classList.contains('active')) {
+                    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                } else {
+                    accordionContent.style.maxHeight = null;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
