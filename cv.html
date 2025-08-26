@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae - Hengyi Yin</title>
 
-    <!-- 提前应用存储的主题，防止闪烁 -->
+    <!-- Apply theme in case of flashing -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'light-theme';
@@ -18,7 +18,7 @@
 </head>
 <body>
     
-    <!-- 侧边栏部分 -->
+    <!-- Sidebar -->
     <aside class="sidebar">
         <img src="images/profile.jpeg" alt="Profile Picture" class="profile-pic">
         <h2>Hennyi Yin</h2>
@@ -31,9 +31,9 @@
         </div>
     </aside>
 
-    <!-- 页头部分 -->
+    <!-- Header -->
     <header>
-        <!-- 导航链接 -->
+        <!-- Index -->
         <nav class="main-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -49,42 +49,52 @@
 
     <div class="container">
         <main>
-            <!-- 简历部分 -->
+            <!-- CV -->
             <section id="cv">
                 <h2>Curriculum Vitae</h2>
 
-                <!-- 教育背景 -->
+                <!-- Education -->
                 <h3>Education</h3>
                 <ul>
                     <li>Bachelor of Electrical Engineering, Minor in Economics, McGill University, Sep. 2021 – May 2025</li>
                 </ul>
 
-                <!-- 工作经历 -->
+                <!-- Work Experience -->
                 <h3>Work Experience</h3>
                 <ul class="work-experience">
                     <!-- 手风琴组件项 -->
-                    <li class="accordion-item">
-                        <button class="accordion-header">AI Engineer Intern, Huawei Technologies Co., Ltd, Jun. 2024 – Sep. 2024</button>
+                     <li class="accordion-item">
+                        <button class="accordion-header">Machine Learning Research Assistant, Montreal Neurological Institute-Hospital, Jan. 2025 – Present</button>
                         <div class="accordion-content">
                             <ul>
-                                <li>Enhanced company-specific LLM’s capabilities in code understanding, debugging, and document generation through techniques like Retrieval-Augmented Generation (RAG) and multi-agent systems, increasing debugging efficiency by 25%.</li>
-                                <li>Fine-tuned internal large language models to support 100K+ daily interactions for tasks such as error diagnosis and automated code review.</li>
-                                <li>Developed error code extraction scripts using Python, Java, and Go to streamline debugging processes, significantly improving efficiency.</li>
+                                <li>Developed a machine learning pipeline for multi-echo MRI image analysis, reducing preprocessing time by 40% and enabling reproducible QSM experiments at The Neuro.</li>
                             </ul>
                         </div>
                     </li>
                     <li class="accordion-item">
-                        <button class="accordion-header">Research Assistant, Central South University, Apr. 2023 – Sep. 2023</button>
+                    <li class="accordion-item">
+                        <button class="accordion-header">Machine Learning Engineer Intern, Huawei Technologies Co., Ltd, Jun. 2024 – Sep. 2024</button>
                         <div class="accordion-content">
                             <ul>
-                                <li>Led Matlab optimization for a DC link capacitor estimation method, improving simulation accuracy by 15% under low sampling frequencies.</li>
-                                <li>Developed algorithms and conducted simulations in Simulink, contributing to high-quality peer-reviewed publications.</li>
+                                <li>Optimized internal LLMs with RAG and multi-agent frameworks, boosting debugging efficiency by 25% as measured by average resolution time per case.</li>
+                                <li>Fine-tuned large-scale models handling 100K+ daily interactions, enabling automated error diagnosis and code review across Python, Java, and Go projects.</li>
+                                <li>Integrated LLM-based code analysis with automation scripts to extract error codes, reducing manual debugging labor by 40% and accelerating issue resolution.</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <button class="accordion-header">Machine Learning Research Assistant, Central South University, Apr. 2023 – Sep. 2023</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Applied machine learning–inspired optimization techniques (three-stage RLS–LS–LS framework) in MATLAB/Simulink for capacitance estimation of railway DC-link capacitors, improving accuracy by 15% under low sampling frequencies.</li>
+                                <li>Validated algorithm performance on dSPACE platform and metro vehicle tests, showing strong robustness against sensor noise and sparse data, with estimation error reduced to within 2%, outperforming conventional baselines (RLS, RELS).</li>
+                                <li>Co-authored an IEEE Transactions on Power Electronics paper (2024), positioning the method as a practical ML-based approach for real-world railway converter condition monitoring.</li>
                             </ul>
                         </div>
                     </li>
                 </ul>
 
-                <!-- 技术技能 -->
+                <!-- Technical -->
                 <h3>Technical Skills</h3>
                 <ul>
                     <li>Programming Languages: Python, Java, C, MySQL, HTML/CSS</li>
@@ -93,16 +103,24 @@
                     <li>Developer Tools: Git, Jupyter Notebooks, PyCharm, Eclipse, VSCode</li>
                 </ul>
                 
-                <!-- 竞赛经历 -->
+                <!-- Competitions -->
                 <h3>Competitions</h3>
-                <ul>
-                    <li>Achieved 3rd place among 76 teams and 280+ participants in McGill CodeJam14 Hackathon, focusing on Large Language Model (LLM) applications. <a href="https://devpost.com/software/maestro-qs6gr1" target="_blank">(Project Link)</a></li>
-                    <li>Delivered a prototype using RAG, Sentence-Transformers, and semantic search, achieving 95%+ accuracy in contextual query retrieval.</li>
-                    <li>Collaborated in a team of four, effectively distributing tasks and maintaining strong communication throughout the competition.</li>
+                <ul class="Competitions">
+                    <!-- 手风琴组件项 -->
+                     <li class="accordion-item">
+                        <button class="accordion-header">McGill CodeJam14 Hackathon, 3rd Place, Nov. 2024</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Engineered an LLM-powered prototype integrating RAG, Sentence-Transformers, and semantic search, achieving 95%+ accuracy in contextual query retrieval.  <a href="https://devpost.com/software/maestro-qs6gr1" target="_blank">(Project Link)</a></li>
+                                <li>Deployed a real-time prototype demonstrating practical applications of large language models in automated customer support and knowledge management.</li>
+                                <li>Coordinated within a four-member team, leading model integration and contributing to a top-3 finish among 76 teams</li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
                 
 
-                <!-- 项目经历 -->
+                <!-- Projects -->
                 <h3>Projects</h3>
                 <ul>
                     <li>Developed an emotion classification system using BERT, achieving 91.35% accuracy and surpassing Naive Bayes baseline (80.15%). Deployed model for real-time sentiment analysis of customer feedback.</li>
@@ -114,14 +132,14 @@
         </main>
     </div>
     
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Hengyi Yin. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript 引入 -->
+    <!-- JavaScript  -->
     <script>
-            // 提前读取存储的主题并应用
+            // Apply theme
     (function() {
         const savedTheme = localStorage.getItem('theme') || 'light-theme';
         document.documentElement.className = savedTheme;
