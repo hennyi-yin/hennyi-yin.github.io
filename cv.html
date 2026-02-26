@@ -9,7 +9,7 @@
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'light-theme';
-            document.body.classList.add(savedTheme);
+            document.documentElement.className = savedTheme;
         })();
     </script>
     
@@ -21,19 +21,20 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <img src="images/profile.jpeg" alt="Profile Picture" class="profile-pic">
-        <h2>Hennyi Yin</h2>
-        <p><strong>B.Eng</strong></p>
+        <h2>Hengyi Yin</h2>
+        <p><strong>B.Eng. in Electrical Engineering</strong></p>
         <p><strong>McGill University</strong></p>
         <p><strong><a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
         <div class="social-links">
-            <strong><a href="https://github.com/hennyi-yin" target="_blank">GitHub</a> |
-            <a href="https://www.linkedin.com/in/hengyi-yin/" target="_blank">LinkedIn</a></strong>
+            <strong>
+                <a href="https://github.com/hennyi-yin" target="_blank" rel="noopener noreferrer">GitHub</a> |
+                <a href="https://www.linkedin.com/in/hengyi-yin/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </strong>
         </div>
     </aside>
 
     <!-- Header -->
     <header>
-        <!-- Index -->
         <nav class="main-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -41,7 +42,6 @@
                 <li><a href="publications.html">Publications</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
                 <!--<li><a href="music.html">Music Room</a></li>-->
-
             </ul>
         </nav>
         <button id="theme-toggle">Switch to Dark Mode</button>
@@ -49,30 +49,37 @@
 
     <div class="container">
         <main>
-            <!-- CV -->
             <section id="cv">
                 <h2>Curriculum Vitae</h2>
 
                 <!-- Education -->
                 <h3>Education</h3>
                 <ul>
-                    <li>Bachelor of Electrical Engineering, Minor in Economics, McGill University, Sep. 2021 – Present</li>
+                    <li><strong>McGill University</strong> — Bachelor of Electrical Engineering, Minor in Economics (Sep. 2021 – Dec. 2025)</li>
+                </ul>
+
+                <h3>Core Courses</h3>
+                <ul>
+                    <li>ECSE 552 – Deep Learning (A-)</li>
+                    <li>ECSE 415 – Intro to Computer Vision (A)</li>
+                    <li>COMP 551 – Applied Machine Learning</li>
                 </ul>
 
                 <!-- Work Experience -->
-                <h3>Work Experience</h3>
+                <h3>Experience</h3>
                 <ul class="work-experience">
-                    <!-- 手风琴组件项 -->
-                     <li class="accordion-item">
-                        <button class="accordion-header">Machine Learning Research Assistant, Montreal Neurological Institute-Hospital, Jan. 2025 – Present</button>
+                    <li class="accordion-item">
+                        <button class="accordion-header">Machine Learning Research Assistant, Montreal Neurological Institute-Hospital (Jan. 2025 – Dec. 2025)</button>
                         <div class="accordion-content">
                             <ul>
-                                <li>Developed a machine learning pipeline for multi-echo MRI image analysis, reducing preprocessing time by 40% and enabling reproducible QSM experiments at The Neuro.</li>
+                                <li>Developed a machine learning pipeline for multi-echo MRI image analysis, reducing preprocessing time by 40% (25→15 min per scan) and enabling reproducible QSM experiments on 7T and 3T MRI data.</li>
+                                <li>Deployed the pipeline for lab-wide use, supporting ongoing neuroimaging studies and improving data reproducibility across 100+ scans.</li>
                             </ul>
                         </div>
                     </li>
+
                     <li class="accordion-item">
-                        <button class="accordion-header">Machine Learning Engineer Intern, Huawei Technologies Co., Ltd, Jun. 2024 – Sep. 2024</button>
+                        <button class="accordion-header">Machine Learning Engineer Intern, Huawei Technologies Co., Ltd (Jun. 2024 – Sep. 2024)</button>
                         <div class="accordion-content">
                             <ul>
                                 <li>Optimized internal LLMs with RAG and multi-agent frameworks, boosting debugging efficiency by 25% as measured by average resolution time per case.</li>
@@ -81,8 +88,9 @@
                             </ul>
                         </div>
                     </li>
+
                     <li class="accordion-item">
-                        <button class="accordion-header">Machine Learning Research Assistant, Central South University, Apr. 2023 – Sep. 2023</button>
+                        <button class="accordion-header">Machine Learning Research Assistant, Central South University, School of Traffic &amp; Transportation Engineering (Apr. 2023 – Sep. 2023)</button>
                         <div class="accordion-content">
                             <ul>
                                 <li>Applied machine learning–inspired optimization techniques (three-stage RLS–LS–LS framework) in MATLAB/Simulink for capacitance estimation of railway DC-link capacitors, improving accuracy by 15% under low sampling frequencies.</li>
@@ -93,126 +101,173 @@
                     </li>
                 </ul>
 
-                <!-- Technical -->
-                <h3>Technical Skills</h3>
-                <ul>
-                    <li>Programming Languages: Python, Java, C, MySQL, HTML/CSS</li>
-                    <li>Frameworks & Libraries: TensorFlow, PyTorch, Keras, Hugging Face, OpenCV, Scikit-learn, Pandas, NumPy, Matplotlib</li>
-                    <li>DevOps & Cloud: Docker, Kubernetes, AWS, GCP, Spark</li>
-                    <li>Developer Tools: Git, Jupyter Notebooks, PyCharm, Eclipse, VSCode</li>
-                </ul>
-                
                 <!-- Competitions -->
                 <h3>Competitions</h3>
-                <ul class="Competitions">
-                    <!-- 手风琴组件项 -->
-                     <li class="accordion-item">
-                        <button class="accordion-header">McGill CodeJam14 Hackathon, 3rd Place, Nov. 2024</button>
+                <ul class="competitions">
+                    <li class="accordion-item">
+                        <button class="accordion-header">McGill CodeJam14 Hackathon — 3rd Place (Nov. 2024)</button>
                         <div class="accordion-content">
                             <ul>
-                                <li>Engineered an LLM-powered prototype integrating RAG, Sentence-Transformers, and semantic search, achieving 95%+ accuracy in contextual query retrieval.  <a href="https://devpost.com/software/maestro-qs6gr1" target="_blank">(Project Link)</a></li>
+                                <li><strong>Tech Stack:</strong> Python, Machine Learning, NLP, LLM</li>
+                                <li>Engineered an LLM-powered prototype integrating RAG, Sentence-Transformers, and semantic search, achieving 95%+ accuracy in contextual query retrieval. <a href="https://devpost.com/software/maestro-qs6gr1" target="_blank" rel="noopener noreferrer">(Project Link)</a></li>
                                 <li>Deployed a real-time prototype demonstrating practical applications of large language models in automated customer support and knowledge management.</li>
-                                <li>Coordinated within a four-member team, leading model integration and contributing to a top-3 finish among 76 teams</li>
+                                <li>Coordinated within a four-member team, leading model integration and contributing to a top-3 finish among 76 teams.</li>
                             </ul>
                         </div>
                     </li>
                 </ul>
-                
+
+                <!-- Publications -->
+                <h3>Publications</h3>
+                <ul class="publications">
+                    <li class="accordion-item">
+                        <button class="accordion-header">IEEE TPEL (2024) — DC-Link Capacitor Capacitance Estimation in Railways</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li><strong>Title:</strong> A Capacitance Estimation Method for DC-Link Capacitors in Railways Based on Precharging Model and Low Sampling Frequency</li>
+                                <li><strong>Authors:</strong> Xun Wu, Kaidi Li, Rui Tian, Hengyi Yin, Tianjia Yu, Shu Cheng, Chunyang Chen</li>
+                                <li><strong>Venue:</strong> IEEE Transactions on Power Electronics, Vol. 39, No. 1, Jan. 2024, pp. 1527–1537</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Technical Skills -->
+                <h3>Technical Skills</h3>
+                <ul>
+                    <li><strong>Programming Languages:</strong> Python, Java, C, MySQL, HTML/CSS</li>
+                    <li><strong>Frameworks &amp; Libraries:</strong> TensorFlow, PyTorch, Keras, Hugging Face, scikit-learn, OpenCV, Pandas, NumPy, Matplotlib, Seaborn, CUDA, cuDNN</li>
+                    <li><strong>DevOps &amp; Cloud:</strong> Docker, Docker Compose, Kubernetes, AWS, GCP, Spark, CI/CD (GitHub Actions)</li>
+                    <li><strong>Developer Tools:</strong> Git (branching, PR workflow), Jupyter Notebooks, VSCode, PyCharm, Eclipse</li>
+                    <li><strong>Model Development &amp; Evaluation:</strong> Feature Engineering (Scaling, PCA), Model Selection &amp; Ensemble Methods, Hyperparameter Tuning (Grid/Random/Bayesian), Regularization (L1/L2, Dropout, Early Stopping), Experiment Tracking (WandB, MLflow), Explainability (SHAP, LIME), Performance Metrics (ROC/AUC, F1-score, MSE, R²)</li>
+                </ul>
 
                 <!-- Projects -->
                 <h3>Projects</h3>
-                <ul>
-                    <li>Developed an emotion classification system using BERT, achieving 91.35% accuracy and surpassing Naive Bayes baseline (80.15%). Deployed model for real-time sentiment analysis of customer feedback.</li>
-                    <li>Built an MLP classifier from scratch for MNIST/CIFAR-10 image classification, achieving significant accuracy improvements through custom network architecture design and optimization.</li>
-                    <li>Delivered a working prototype utilizing RAG, Sentence-Transformers, and semantic search in a hackathon, achieving 95%+ accuracy in contextual query retrieval.</li>
-                </ul>
+                <ul class="projects">
+                    <li class="accordion-item">
+                        <button class="accordion-header">Gomoku Bot — Python, TensorFlow/Keras, NumPy, tf.data</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Trained a ResNet-like CNN policy model on ~7M Gomoku board states, achieving ~40%+ top-1 move accuracy on the validation set (400-way classification) and consistently producing strong moves under randomized test positions.</li>
+                                <li>Built a high-throughput tf.data pipeline (shuffle/batch/prefetch) with synchronized board–label augmentation (90° rotations + flips), and improved training stability/generalization using residual blocks, BatchNorm, L2 regularization, dropout, early stopping, ReduceLROnPlateau, and best-checkpoint saving.</li>
+                            </ul>
+                        </div>
+                    </li>
 
+                    <li class="accordion-item">
+                        <button class="accordion-header">Automated Trading Bot (24-hour Hackathon) — Python, TensorFlow, PostgreSQL, GCP, Kubernetes</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Generated real-time stock trend forecasts and trading signals on live market feeds, reaching ~60%+ directional accuracy in backtests across multiple tickers/time windows.</li>
+                                <li>Implemented an end-to-end ML pipeline (data ingestion → feature engineering → training/inference → dashboard), integrated OAuth 2.0 authentication and transaction/notification tracking, and deployed a scalable containerized service on Google Cloud via Kubernetes.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="accordion-item">
+                        <button class="accordion-header">CNN-SVM Reproducibility — TensorFlow 1.x, Python, NumPy, Matplotlib</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Achieved 99.11% MNIST test accuracy, slightly exceeding the reproduced paper’s results.</li>
+                                <li>Engineered a reproducible TensorFlow 1.x environment (Python 3.6 + TF 1.15), tuned penalty parameter C and learning rate, and performed ablation studies (Sigmoid vs. ReLU, layer removal) to analyze model behavior.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="accordion-item">
+                        <button class="accordion-header">MLP &amp; CNN Image Classification — Python (from scratch), PyTorch, NumPy</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Raised Fashion-MNIST accuracy to ~87% and CNN performance to 91.8%, outperforming baseline MLP results.</li>
+                                <li>Developed MLP from scratch, optimized weight initialization (Xavier, Kaiming), network depth, activation functions (Leaky ReLU), and regularization techniques to maximize model accuracy.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="accordion-item">
+                        <button class="accordion-header">Emotion Classification with BERT — Hugging Face Transformers, PyTorch, GPU (T4)</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Increased classification accuracy from 80.15% to 91.35%, demonstrating the benefit of deep contextual modeling.</li>
+                                <li>Optimized and fine-tuned <code>bert-base-uncased</code> with mixed-precision training (reducing GPU memory usage by ~40%), learning rate warmup, and early stopping to ensure stable convergence.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="accordion-item">
+                        <button class="accordion-header">Regression &amp; Optimization Experiments — Python, scikit-learn, NumPy, Matplotlib</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Reduced test MSE to 0.251 and improved model generalization on Boston Housing and Wine datasets.</li>
+                                <li>Leveraged 5-fold cross-validation, tuned mini-batch size (optimal=64) and learning rate, and experimented with Gaussian basis functions to balance bias and variance.</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </section>
         </main>
     </div>
     
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Hengyi Yin. All rights reserved.</p>
+        <p>&copy; 2026 Hengyi Yin. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript  -->
+    <!-- JavaScript -->
     <script>
-            // Apply theme
+    // Apply theme to html element early
     (function() {
         const savedTheme = localStorage.getItem('theme') || 'light-theme';
         document.documentElement.className = savedTheme;
     })();
-    
-    // 手风琴展开与关闭功能
+
+    // Accordion behavior
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const accordionItem = header.parentElement;
             const accordionContent = header.nextElementSibling;
 
-            // 如果当前项已经展开，关闭它
             if (accordionItem.classList.contains('active')) {
                 accordionItem.classList.remove('active');
                 accordionContent.style.maxHeight = null;
             } else {
-                // 展开当前项
                 accordionItem.classList.add('active');
                 accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
             }
         });
     });
 
-
-
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            body.classList.add('dark-theme');
-            themeToggleBtn.textContent = 'Switch to Light Mode';
-        } else {
-            body.classList.remove('dark-theme');
-            themeToggleBtn.textContent = 'Switch to Dark Mode';
-        }
-
-        // 强制刷新手风琴组件的颜色
-        document.querySelectorAll('.accordion-item').forEach(item => {
-            if (item.classList.contains('active')) {
-                item.querySelector('.accordion-content').style.maxHeight = item.querySelector('.accordion-content').scrollHeight + 'px';
-            }
-        });
-    }
-
     const themeToggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // 读取本地存储的主题，没有则默认为 'light-theme'
     const savedTheme = localStorage.getItem('theme') || 'light-theme';
-    // 给 body 添加初始主题类
     body.classList.add(savedTheme);
 
-    // 初始化按钮文本
     themeToggleBtn.textContent = (savedTheme === 'dark-theme')
-    ? 'Switch to Light Mode'
-    : 'Switch to Dark Mode';
-
-    // 点击按钮时切换主题
-    themeToggleBtn.addEventListener('click', () => {
-    const isDark = body.classList.contains('dark-theme');
-    // 确定新主题
-    const newTheme = isDark ? 'light-theme' : 'dark-theme';
-
-    // 移除旧主题类，添加新主题类
-    body.classList.remove('light-theme', 'dark-theme');
-    body.classList.add(newTheme);
-
-    // 更新按钮文本
-    themeToggleBtn.textContent = (newTheme === 'dark-theme')
         ? 'Switch to Light Mode'
         : 'Switch to Dark Mode';
 
-    // 存储到 localStorage
-    localStorage.setItem('theme', newTheme);
-    });
+    themeToggleBtn.addEventListener('click', () => {
+        const isDark = body.classList.contains('dark-theme');
+        const newTheme = isDark ? 'light-theme' : 'dark-theme';
 
+        body.classList.remove('light-theme', 'dark-theme');
+        body.classList.add(newTheme);
+
+        document.documentElement.className = newTheme;
+
+        themeToggleBtn.textContent = (newTheme === 'dark-theme')
+            ? 'Switch to Light Mode'
+            : 'Switch to Dark Mode';
+
+        localStorage.setItem('theme', newTheme);
+
+        // Refresh open accordion height after theme switch
+        document.querySelectorAll('.accordion-item.active .accordion-content').forEach(content => {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+    });
     </script>
 </body>
 </html>
