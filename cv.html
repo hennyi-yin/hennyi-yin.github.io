@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae - Hengyi Yin</title>
 
-    <!-- Apply theme in case of flashing -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light-theme';
-            document.documentElement.className = savedTheme;
-        })();
-    </script>
-    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
@@ -208,60 +200,7 @@
         <p>&copy; 2026 Hengyi Yin. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript -->
-    <script>
-    // Apply theme to html element early
-    (function() {
-        const savedTheme = localStorage.getItem('theme') || 'light-theme';
-        document.documentElement.className = savedTheme;
-    })();
-
-    // Accordion behavior
-    document.querySelectorAll('.accordion-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const accordionItem = header.parentElement;
-            const accordionContent = header.nextElementSibling;
-
-            if (accordionItem.classList.contains('active')) {
-                accordionItem.classList.remove('active');
-                accordionContent.style.maxHeight = null;
-            } else {
-                accordionItem.classList.add('active');
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-            }
-        });
-    });
-
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    const savedTheme = localStorage.getItem('theme') || 'light-theme';
-    body.classList.add(savedTheme);
-
-    themeToggleBtn.textContent = (savedTheme === 'dark-theme')
-        ? 'Switch to Light Mode'
-        : 'Switch to Dark Mode';
-
-    themeToggleBtn.addEventListener('click', () => {
-        const isDark = body.classList.contains('dark-theme');
-        const newTheme = isDark ? 'light-theme' : 'dark-theme';
-
-        body.classList.remove('light-theme', 'dark-theme');
-        body.classList.add(newTheme);
-
-        document.documentElement.className = newTheme;
-
-        themeToggleBtn.textContent = (newTheme === 'dark-theme')
-            ? 'Switch to Light Mode'
-            : 'Switch to Dark Mode';
-
-        localStorage.setItem('theme', newTheme);
-
-        // Refresh open accordion height after theme switch
-        document.querySelectorAll('.accordion-item.active .accordion-content').forEach(content => {
-            content.style.maxHeight = content.scrollHeight + 'px';
-        });
-    });
-    </script>
+    <script src="script.js"></script>
+    <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"bf2127d7d87d4073a5b05cd8706f285a"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

@@ -1,96 +1,60 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Homepage - Hengyi Yin</title>
-    
-    <!-- 提前应用存储的主题，防止闪烁 -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light-theme';
-            document.body.classList.add(savedTheme);
-        })();
-    </script>
-    <link rel="stylesheet" href="styles.css">
-    <!-- 可以添加 Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hengyi Yin - machine learning engineer and researcher working across language models and neuroimaging.">
+  <title>Hengyi Yin - Machine Learning Engineer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <img src="images/profile.jpeg" alt="Profile Picture" class="profile-pic">
-        <h2>Hengyi Yin</h2>
-        <p><strong> B.Eng</strong></p>
-        <p><strong> McGill University</strong></p>
-        <p><strong> <a href="hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
-        <!--<p><strong>Research Website:</strong> <a href="https://your-research-website.com" target="_blank">your-research-website.com</a></p> -->
-        <!-- 社交媒体链接 -->
-        <div class="social-links">
-            <strong><a href="https://github.com/hennyi-yin" target="_blank">GitHub</a> |
-            <a href="https://www.linkedin.com/in/hengyi-yin/" target="_blank">LinkedIn</a></strong>
-        </div>
-    </aside>
-    
-    <header>
-        <!--
-        <div class="header-content">
-            <h1>Hengyi Yin</h1>
-            <p>B.Eng | McGill University</p>
-        </div>
-        -->
-        <!-- 导航链接 -->
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <!--<li><a href="music.html">Music Room</a></li>-->
-
-            </ul>
-        </nav>
-        <!-- 主题切换按钮 -->
-        <button id="theme-toggle">Switch to Dark Mode</button>
-    </header>
-
-    <div class="container">
-       
-
-        <!-- 主要内容 -->
-        <main>
-            <!-- 关于我 -->
-            <section id="about">
-                <h2>About Me</h2>
-                <p>Hi! I'm Hengyi. An ECSE student specializing in Machine Learning, Deep Learning, and Natural Language Processing with experience in
-                    developing and deploying state-of-the-art language models. I love Piano, animes and anything may change the world!</p>
-            </section>
-
-            <!-- 研究方向 -->
-            <section id="research">
-                <h2>Research Interests</h2>
-                <ul>
-                    <li>Machine learning</li>
-                    <li>Deep learning</li>
-                    <li>Natural Language Processing</li>
-                </ul>
-            </section>
-
-            <!-- 联系方式 -->
-            <section id="contact">
-                <h2>Contact</h2>
-                <p>Email: <a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></p>
-                <!-- <p>Research Website: <a href="https://your-research-website.com" target="_blank">your-research-website.co</a></p> -->
-            
-            
-        </main>
+  <aside class="sidebar">
+    <img src="images/profile.jpeg" alt="Hengyi Yin" class="profile-pic">
+    <h2>Hengyi Yin</h2>
+    <p><strong>B.Eng. Electrical Engineering</strong></p>
+    <p><strong>McGill University</strong></p>
+    <div class="social-links">
+      <strong><a href="https://github.com/hennyi-yin" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/hengyi-yin/" target="_blank" rel="noopener noreferrer">LinkedIn</a></strong>
     </div>
-
-    <!-- 页脚 -->
-    <footer>
-        <p>&copy; 2025 Hengyi Yin. All rights reserved.</p>
-    </footer>
-    
-    <!-- JavaScript 脚本 -->
-    <script src="script.js"> </script>
+  </aside>
+  <header>
+    <nav class="main-nav" aria-label="Main navigation"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="cv.html">CV</a></li><li><a href="publications.html">Publications</a></li><li><a href="portfolio.html">Portfolio</a></li>
+    </ul></nav>
+    <button id="theme-toggle" type="button">Dark mode</button>
+  </header>
+  <div class="container"><main>
+    <section class="hero">
+      <span class="eyebrow">Machine Learning · NLP · Neuroimaging</span>
+      <h1>Building intelligent systems with real-world impact.</h1>
+      <p class="lede">I’m Hengyi, an electrical engineering graduate from McGill working at the intersection of machine learning research, language models, and reproducible scientific computing.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="portfolio.html">Explore my work</a>
+        <a class="button secondary" href="mailto:hengyi.yin@mail.mcgill.ca">Get in touch</a>
+      </div>
+      <div class="stats" aria-label="Core capabilities">
+        <div class="stat"><strong>Machine Learning</strong><span>End-to-end model development, evaluation, and optimization</span></div>
+        <div class="stat"><strong>AI Systems</strong><span>LLMs, RAG, natural language processing, and workflow automation</span></div>
+        <div class="stat"><strong>Research Engineering</strong><span>Reproducible pipelines, scientific computing, and deployment</span></div>
+      </div>
+    </section>
+    <section>
+      <span class="eyebrow">Focus</span>
+      <h2>Research interests</h2>
+      <ul class="interest-grid"><li>Machine learning systems</li><li>Natural language processing</li><li>Deep learning for scientific data</li></ul>
+    </section>
+    <section class="site-activity" id="site-activity" aria-labelledby="activity-title">
+      <span class="eyebrow">Live footprint</span>
+      <h2 id="activity-title">Seen around the world.</h2>
+      <div class="activity-card">
+        <div class="activity-total"><strong id="visit-count">--</strong><span>visits since July 2026</span></div>
+        <div class="activity-map" id="activity-map" aria-live="polite"><p>Loading map...</p></div>
+      </div>
+      <p class="activity-note">Approximate country-level totals. No personal information is stored.</p>
+    </section>
+  </main></div>
+  <footer><p>&copy; 2026 Hengyi Yin. All rights reserved.</p></footer>
+  <script src="script.js"></script>
+  <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"bf2127d7d87d4073a5b05cd8706f285a"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

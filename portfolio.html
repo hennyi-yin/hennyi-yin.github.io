@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Hengyi Yin</title>
     
-    <!-- Apply the saved theme in advance to prevent flickering -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light-theme';
-            document.documentElement.classList.add(savedTheme);
-        })();
-    </script>
     <link rel="stylesheet" href="styles.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -135,29 +128,12 @@
     
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Hengyi Yin. All rights reserved.</p>
+        <p>&copy; 2026 Hengyi Yin. All rights reserved.</p>
     </footer>
     
     <!-- JavaScript Scripts -->
     <script src="script.js"></script>
-    <script>
-        // Accordion Functionality
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const accordionItem = header.parentElement;
-                const accordionContent = header.nextElementSibling;
-
-                // Toggle active class
-                accordionItem.classList.toggle('active');
-
-                if (accordionItem.classList.contains('active')) {
-                    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-                } else {
-                    accordionContent.style.maxHeight = null;
-                }
-            });
-        });
-    </script>
+    <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"bf2127d7d87d4073a5b05cd8706f285a"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 
