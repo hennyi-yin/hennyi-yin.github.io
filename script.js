@@ -23,7 +23,9 @@ async function initSiteActivity() {
     if (!response.ok) throw new Error('Statistics unavailable');
     const data = await response.json();
     const visits = Number(data.visits) || 0;
-    const countries = Array.isArray(data.countries) ? data.countries.slice(0, 5) : [];
+    // Render every country returned by the API. Limiting this list to the top
+    // five made valid locations disappear as soon as they fell below the cut.
+    const countries = Array.isArray(data.countries) ? data.countries : [];
     countElement.textContent = new Intl.NumberFormat('en').format(visits);
     await renderVisitorMap(mapElement, countries);
   } catch (error) {
@@ -36,7 +38,9 @@ async function renderVisitorMap(container, countries) {
   const [{ geoNaturalEarth1, geoPath }, topojson, worldModule, isoModule] = await Promise.all([
     import('https://esm.sh/d3-geo@3.1.1'),
     import('https://esm.sh/topojson-client@3.1.0'),
-    import('https://esm.sh/@d3-maps/atlas@1.0.0/world/countries/countries-110m'),
+    // The 50m dataset includes small countries that are omitted at 110m
+    // (for example Singapore, Vatican City and Monaco).
+    import('https://esm.sh/@d3-maps/atlas@1.0.0/world/countries/countries-50m'),
     import('https://esm.sh/i18n-iso-countries@7.14.0')
   ]);
   const world = worldModule.default || worldModule;
@@ -68,17 +72,25 @@ async function renderVisitorMap(container, countries) {
   const tooltip = document.createElement('div');
   tooltip.className = 'map-tooltip';
   tooltip.hidden = true;
+  const countryAliases = { CHINA: 'CN', SINGAPORE: 'SG', UK: 'GB' };
+  const mapIdAliases = { XK: 'KOS' };
 
   countries.forEach(item => {
-    if (!/^[A-Z]{2}$/.test(item.country)) return;
-    const iso3 = iso.alpha2ToAlpha3(item.country);
+    const rawCountry = String(item.country || '').trim().toUpperCase();
+    // Cloudflare normally returns ISO alpha-2 codes. Accept alpha-3 as well so
+    // a future API/storage change cannot silently hide otherwise valid data.
+    const countryCode = countryAliases[rawCountry] || (/^[A-Z]{3}$/.test(rawCountry)
+      ? iso.alpha3ToAlpha2(rawCountry)
+      : rawCountry);
+    if (!/^[A-Z]{2}$/.test(countryCode)) return;
+    const iso3 = mapIdAliases[countryCode] || iso.alpha2ToAlpha3(countryCode);
     const country = featureById.get(iso3);
     if (!country) return;
     const [x, y] = path.centroid(country);
     if (!Number.isFinite(x) || !Number.isFinite(y)) return;
     const value = Number(item.visits) || 0;
     const radius = 4.5 + Math.sqrt(value / largest) * 4;
-    const label = `${names?.of(item.country) || item.country}: ${new Intl.NumberFormat('en').format(value)} visits`;
+    const label = `${names?.of(countryCode) || countryCode}: ${new Intl.NumberFormat('en').format(value)} visits`;
     const pin = document.createElementNS(svgNS, 'g');
     pin.setAttribute('class', 'map-pin');
     pin.setAttribute('transform', `translate(${x} ${y - radius - 4})`);
