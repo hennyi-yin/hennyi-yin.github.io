@@ -52,8 +52,104 @@ function Header() {
   );
 }
 
+async function drawVisitorMap(container, countries) {
+  const [{ geoNaturalEarth1, geoPath }, topojson, worldModule, isoModule] = await Promise.all([
+    import(/* @vite-ignore */ 'https://esm.sh/d3-geo@3.1.1'),
+    import(/* @vite-ignore */ 'https://esm.sh/topojson-client@3.1.0'),
+    import(/* @vite-ignore */ 'https://esm.sh/@d3-maps/atlas@1.0.0/world/countries/countries-50m'),
+    import(/* @vite-ignore */ 'https://esm.sh/i18n-iso-countries@7.14.0'),
+  ]);
+  const world = worldModule.default || worldModule;
+  const atlasFeatures = topojson.feature(world, world.objects.features).features;
+  const iso = isoModule.default || isoModule;
+  const width = Math.max(container.clientWidth || 580, 320);
+  const height = Math.round(width * 0.52);
+  const projection = geoNaturalEarth1().fitExtent([[5, 5], [width - 5, height - 5]], { type: 'FeatureCollection', features: atlasFeatures });
+  const path = geoPath(projection);
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'World map showing visitor locations by country');
+
+  atlasFeatures.forEach(country => {
+    const shape = document.createElementNS(svgNS, 'path');
+    shape.setAttribute('class', 'map-country');
+    shape.setAttribute('d', path(country));
+    svg.appendChild(shape);
+  });
+
+  const featureById = new Map(atlasFeatures.map(country => [country.properties.id, country]));
+  const names = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['en'], { type: 'region' }) : null;
+  const largest = Math.max(...countries.map(item => Number(item.visits) || 0), 1);
+  const tooltip = document.createElement('div');
+  tooltip.className = 'map-tooltip';
+  tooltip.hidden = true;
+  const countryAliases = { CHINA: 'CN', SINGAPORE: 'SG', UK: 'GB' };
+  const mapIdAliases = { XK: 'KOS' };
+
+  countries.forEach(item => {
+    const rawCountry = String(item.country || '').trim().toUpperCase();
+    const countryCode = countryAliases[rawCountry] || (/^[A-Z]{3}$/.test(rawCountry) ? iso.alpha3ToAlpha2(rawCountry) : rawCountry);
+    if (!/^[A-Z]{2}$/.test(countryCode)) return;
+    const iso3 = mapIdAliases[countryCode] || iso.alpha2ToAlpha3(countryCode);
+    const country = featureById.get(iso3);
+    if (!country) return;
+    const [x, y] = path.centroid(country);
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return;
+    const value = Number(item.visits) || 0;
+    const radius = 4.5 + Math.sqrt(value / largest) * 4;
+    const label = `${names?.of(countryCode) || countryCode}: ${new Intl.NumberFormat('en').format(value)} visits`;
+    const pin = document.createElementNS(svgNS, 'g');
+    pin.setAttribute('class', 'map-pin');
+    pin.setAttribute('transform', `translate(${x} ${y - radius - 4})`);
+    pin.setAttribute('role', 'img');
+    pin.setAttribute('aria-label', label);
+
+    const stem = document.createElementNS(svgNS, 'line');
+    stem.setAttribute('class', 'map-pin-stem');
+    stem.setAttribute('x1', '0'); stem.setAttribute('y1', String(radius * 0.7));
+    stem.setAttribute('x2', '0'); stem.setAttribute('y2', String(radius + 4));
+    const head = document.createElementNS(svgNS, 'circle');
+    head.setAttribute('class', 'map-pin-head');
+    head.setAttribute('r', String(radius));
+    const core = document.createElementNS(svgNS, 'circle');
+    core.setAttribute('class', 'map-pin-core');
+    core.setAttribute('r', String(Math.max(1.8, radius * 0.28)));
+    pin.append(stem, head, core);
+
+    const showTooltip = () => {
+      tooltip.textContent = label;
+      tooltip.style.left = `${(x / width) * 100}%`;
+      tooltip.style.top = `${((y - radius) / height) * 100}%`;
+      tooltip.hidden = false;
+    };
+    pin.addEventListener('pointerenter', showTooltip);
+    pin.addEventListener('pointerleave', () => { tooltip.hidden = true; });
+    pin.addEventListener('click', () => { tooltip.hidden ? showTooltip() : (tooltip.hidden = true); });
+    svg.appendChild(pin);
+  });
+
+  container.replaceChildren(svg, tooltip);
+}
+
+function VisitorMap({ countries, unavailable }) {
+  const mapRef = useRef(null);
+  useEffect(() => {
+    if (!mapRef.current || !countries) return undefined;
+    let active = true;
+    drawVisitorMap(mapRef.current, countries).catch(() => {
+      if (active && mapRef.current) mapRef.current.textContent = 'Map is temporarily unavailable.';
+    });
+    return () => { active = false; };
+  }, [countries]);
+  return <div className="activity-map" ref={mapRef} aria-live="polite"><p>{unavailable ? 'Live statistics are temporarily unavailable.' : 'Loading map…'}</p></div>;
+}
+
 function Home() {
   const [visits, setVisits] = useState('--');
+  const [countries, setCountries] = useState(null);
+  const [statsUnavailable, setStatsUnavailable] = useState(false);
   useEffect(() => {
     const api = 'https://portfolio-analytics-api.yhy20020805.workers.dev';
     const load = async () => {
@@ -66,7 +162,11 @@ function Home() {
         if (!response.ok) throw new Error();
         const data = await response.json();
         setVisits(new Intl.NumberFormat('en').format(Number(data.visits) || 0));
-      } catch { setVisits('--'); }
+        setCountries(Array.isArray(data.countries) ? data.countries : []);
+      } catch {
+        setVisits('--');
+        setStatsUnavailable(true);
+      }
     };
     load();
   }, []);
@@ -83,7 +183,7 @@ function Home() {
       </div>
     </section>
     <section><span className="eyebrow">Focus</span><h2>Research interests</h2><ul className="interest-grid"><li>Machine learning systems</li><li>Natural language processing</li><li>Deep learning for scientific data</li></ul></section>
-    <section className="site-activity" aria-labelledby="activity-title"><span className="eyebrow">Live footprint</span><h2 id="activity-title">Seen around the world.</h2><div className="activity-card activity-card--compact"><div className="activity-total"><strong>{visits}</strong><span>visits since July 2026</span></div><p>Thank you for visiting from wherever you are. This counter stores only approximate, anonymous totals.</p></div></section>
+    <section className="site-activity" aria-labelledby="activity-title"><span className="eyebrow">Live footprint</span><h2 id="activity-title">Seen around the world.</h2><div className="activity-card"><div className="activity-total"><strong>{visits}</strong><span>visits since July 2026</span></div><VisitorMap countries={countries} unavailable={statsUnavailable} /></div><p className="activity-note">Approximate country-level totals. No personal information is stored.</p></section>
   </>;
 }
 
