@@ -36,7 +36,7 @@ function Sidebar() {
   );
 }
 
-function Header() {
+function Header({ sakuraEnabled, onToggleSakura }) {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark-theme'));
   useEffect(() => {
     document.documentElement.classList.toggle('dark-theme', dark);
@@ -47,9 +47,105 @@ function Header() {
   return (
     <header>
       <nav className="main-nav" aria-label="Main navigation"><ul>{links.map(([to, label]) => <li key={to}><NavLink to={to} end={to === '/'}>{label}</NavLink></li>)}</ul></nav>
-      <button id="theme-toggle" type="button" onClick={() => setDark(value => !value)} aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`}>{dark ? 'Light mode' : 'Dark mode'}</button>
+      <div className="header-controls">
+        <button id="theme-toggle" type="button" onClick={() => setDark(value => !value)} aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`}>{dark ? 'Light mode' : 'Dark mode'}</button>
+        <button className="sakura-button" type="button" aria-pressed={sakuraEnabled} aria-label={`${sakuraEnabled ? 'Disable' : 'Enable'} falling cherry blossoms`} title="Falling cherry blossoms" onClick={onToggleSakura}>Cherry blossoms</button>
+      </div>
     </header>
   );
+}
+
+function SakuraCanvas({ enabled }) {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
+    if (!canvas || !context || !enabled || matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let animationId = 0;
+    let particles = [];
+    let petals = [];
+
+    const resize = () => {
+      const ratio = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * ratio;
+      canvas.height = innerHeight * ratio;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      petals = Array.from({ length: Math.min(55, Math.ceil(innerWidth / 22)) }, (_, index) => petals[index] || makePetal(true));
+    };
+    const makePetal = (randomY = false) => ({
+      x: Math.random() * innerWidth,
+      y: randomY ? Math.random() * innerHeight : -20,
+      size: 4 + Math.random() * 5,
+      speed: 0.45 + Math.random() * 0.75,
+      drift: Math.random() * Math.PI * 2,
+      spin: Math.random() * Math.PI,
+    });
+    const drawPetal = petal => {
+      context.save();
+      context.translate(petal.x, petal.y);
+      context.rotate(petal.spin);
+      context.beginPath();
+      context.moveTo(0, 0);
+      context.bezierCurveTo(petal.size, -petal.size, petal.size * 1.8, 0, 0, petal.size * 1.7);
+      context.bezierCurveTo(-petal.size * 0.7, petal.size, -petal.size * 0.6, petal.size * 0.2, 0, 0);
+      context.fillStyle = 'rgba(242, 155, 183, .72)';
+      context.fill();
+      context.restore();
+    };
+    const burstPetal = petal => {
+      for (let index = 0; index < 9; index += 1) {
+        const angle = (Math.PI * 2 * index) / 9 + Math.random() * 0.25;
+        const force = 0.65 + Math.random() * 1.15;
+        particles.push({ x: petal.x, y: petal.y, size: Math.max(2, petal.size * (0.3 + Math.random() * 0.28)), vx: Math.cos(angle) * force, vy: Math.sin(angle) * force - 0.35, spin: Math.random() * Math.PI, alpha: 0.9 });
+      }
+      Object.assign(petal, makePetal());
+    };
+    const onPointerDown = event => {
+      let closest = null;
+      let closestDistance = 24;
+      petals.forEach(petal => {
+        const distance = Math.hypot(event.clientX - petal.x, event.clientY - petal.y);
+        if (distance < closestDistance) { closest = petal; closestDistance = distance; }
+      });
+      if (closest) burstPetal(closest);
+    };
+    const animate = () => {
+      context.clearRect(0, 0, innerWidth, innerHeight);
+      petals.forEach(petal => {
+        petal.y += petal.speed;
+        petal.x += Math.sin(petal.drift + petal.y * 0.012) * 0.45;
+        petal.spin += 0.008;
+        if (petal.y > innerHeight + 20) Object.assign(petal, makePetal());
+        drawPetal(petal);
+      });
+      particles = particles.filter(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.97;
+        particle.vy = particle.vy * 0.97 + 0.018;
+        particle.spin += 0.025;
+        particle.alpha -= 0.018;
+        if (particle.alpha <= 0) return false;
+        context.globalAlpha = particle.alpha;
+        drawPetal(particle);
+        context.globalAlpha = 1;
+        return true;
+      });
+      animationId = requestAnimationFrame(animate);
+    };
+
+    resize();
+    addEventListener('resize', resize, { passive: true });
+    document.addEventListener('pointerdown', onPointerDown, { passive: true });
+    animate();
+    return () => {
+      cancelAnimationFrame(animationId);
+      removeEventListener('resize', resize);
+      document.removeEventListener('pointerdown', onPointerDown);
+      context.clearRect(0, 0, innerWidth, innerHeight);
+    };
+  }, [enabled]);
+  return <canvas id="sakura-canvas" ref={canvasRef} aria-hidden="true" />;
 }
 
 async function drawVisitorMap(container, countries) {
@@ -243,5 +339,11 @@ function ScrollManager() {
 }
 
 export default function App() {
-  return <><ScrollManager /><Sidebar /><Header /><div className="container"><main className="route-view"><Routes><Route path="/" element={<Home />} /><Route path="/cv" element={<CV />} /><Route path="/publications" element={<Publications />} /><Route path="/portfolio" element={<Portfolio />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></main></div><footer><p>© 2026 Hengyi Yin. All rights reserved.</p></footer><MusicDock /></>;
+  const [sakuraEnabled, setSakuraEnabled] = useState(() => localStorage.getItem('sakuraEnabled') === 'true');
+  const toggleSakura = () => setSakuraEnabled(value => {
+    const next = !value;
+    localStorage.setItem('sakuraEnabled', String(next));
+    return next;
+  });
+  return <><ScrollManager /><SakuraCanvas enabled={sakuraEnabled} /><Sidebar /><Header sakuraEnabled={sakuraEnabled} onToggleSakura={toggleSakura} /><div className="container"><main className="route-view"><Routes><Route path="/" element={<Home />} /><Route path="/cv" element={<CV />} /><Route path="/publications" element={<Publications />} /><Route path="/portfolio" element={<Portfolio />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></main></div><footer><p>© 2026 Hengyi Yin. All rights reserved.</p></footer><MusicDock /></>;
 }
