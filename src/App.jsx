@@ -2,6 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import profileImage from '../images/profile.jpeg';
 
+const resumeUrl = `${import.meta.env.BASE_URL}Hengyi-Yin-Resume.pdf`;
+const contactEmail = 'hengyi.yin@columbia.edu';
+const researchInterests = ['Multimodal Learning', 'Generative Models', 'Computer Vision', 'Robust Machine Learning', 'Biomedical Imaging'];
+
+function ResumeLink({ className = 'button secondary' }) {
+  return <a className={className} href={resumeUrl} download="Hengyi-Yin-Resume.pdf">Download resume (PDF)</a>;
+}
+
 const tracks = [
   ['Nocturne in B-flat minor, Op. 9 No. 1', new URL('../musics/Nocturne in B flat minor, Op. 9 no. 1.mp3', import.meta.url).href],
   ['Nocturne in E-flat major, Op. 9 No. 2', new URL('../musics/Nocturne in E flat major, Op. 9 no. 2.mp3', import.meta.url).href],
@@ -13,12 +21,12 @@ function ExternalLink({ children, ...props }) {
 }
 
 function Accordion({ title, children }) {
-  const [open, setOpen] = useState(false);
-  const contentRef = useRef(null);
   return (
-    <li className={`accordion-item${open ? ' active' : ''}`}>
-      <button className="accordion-header" type="button" aria-expanded={open} onClick={() => setOpen(value => !value)}>{title}</button>
-      <div ref={contentRef} className="accordion-content" style={{ maxHeight: open ? `${contentRef.current?.scrollHeight ?? 0}px` : undefined }}>{children}</div>
+    <li className="accordion-item">
+      <details>
+        <summary className="accordion-header">{title}</summary>
+        <div className="accordion-content">{children}</div>
+      </details>
     </li>
   );
 }
@@ -28,9 +36,10 @@ function Sidebar() {
     <aside className="sidebar">
       <img src={profileImage} alt="Hengyi Yin" className="profile-pic" />
       <h2>Hengyi Yin</h2>
-      <p><strong>B.Eng. Electrical Engineering</strong></p>
-      <p><strong>McGill University</strong></p>
-      <p><strong><a href="mailto:hengyi.yin@mail.mcgill.ca">hengyi.yin@mail.mcgill.ca</a></strong></p>
+      <p><strong>M.S. Electrical Engineering Student</strong></p>
+      <p><strong>Columbia University</strong></p>
+      <p className="sidebar-background">B.Eng. · McGill University</p>
+      <p><strong><a href={`mailto:${contactEmail}`}>{contactEmail}</a></strong></p>
       <div className="social-links"><ExternalLink href="https://github.com/hennyi-yin">GitHub</ExternalLink><ExternalLink href="https://www.linkedin.com/in/hengyi-yin/">LinkedIn</ExternalLink></div>
     </aside>
   );
@@ -268,46 +277,64 @@ function Home() {
   }, []);
   return <>
     <section className="hero">
-      <span className="eyebrow">Machine Learning · NLP · Neuroimaging</span>
-      <h1>Building intelligent systems with real-world impact.</h1>
-      <p className="lede">I’m Hengyi, an electrical engineering graduate from McGill working at the intersection of machine learning research, language models, and reproducible scientific computing.</p>
-      <div className="hero-actions"><NavLink className="button primary" to="/portfolio">Explore my work</NavLink><a className="button secondary" href="mailto:hengyi.yin@mail.mcgill.ca">Get in touch</a></div>
+      <span className="eyebrow">Columbia University · Electrical Engineering</span>
+      <h1>Learning from language, images, and scientific data.</h1>
+      <p className="lede">I’m Hengyi, an M.S. student in Electrical Engineering at Columbia University and a McGill graduate. My work spans language-model retrieval, graph neural networks, and reproducible neuroimaging workflows.</p>
+      <div className="hero-actions"><NavLink className="button primary" to="/portfolio">Explore my work</NavLink><ResumeLink /><a className="button secondary" href={`mailto:${contactEmail}`}>Get in touch</a></div>
       <div className="stats" aria-label="Core capabilities">
-        <div className="stat"><strong>Machine Learning</strong><span>End-to-end model development, evaluation, and optimization</span></div>
-        <div className="stat"><strong>AI Systems</strong><span>LLMs, RAG, natural language processing, and workflow automation</span></div>
-        <div className="stat"><strong>Research Engineering</strong><span>Reproducible pipelines, scientific computing, and deployment</span></div>
+        <div className="stat"><strong>Neuroimaging</strong><span>QSM preprocessing and deep learning-based brain extraction at The Neuro</span></div>
+        <div className="stat"><strong>LLM Retrieval</strong><span>RAG and semantic search · 3rd of 76 teams at McGill CodeJam14</span></div>
+        <div className="stat"><strong>Published Research</strong><span>Co-author of a 2024 IEEE Transactions on Power Electronics paper</span></div>
       </div>
     </section>
-    <section><span className="eyebrow">Focus</span><h2>Research interests</h2><ul className="interest-grid"><li>Machine learning systems</li><li>Natural language processing</li><li>Deep learning for scientific data</li></ul></section>
+    <section><span className="eyebrow">Focus</span><h2>Research interests</h2><ul className="interest-grid">{researchInterests.map(interest => <li key={interest}>{interest}</li>)}</ul></section>
     <section className="site-activity" aria-labelledby="activity-title"><span className="eyebrow">Live footprint</span><h2 id="activity-title">Seen around the world.</h2><div className="activity-card"><div className="activity-total"><strong>{visits}</strong><span>visits since July 2026</span></div><VisitorMap countries={countries} unavailable={statsUnavailable} /></div><p className="activity-note">Approximate country-level totals. No personal information is stored.</p></section>
   </>;
 }
 
-const experience = [
-  ['Machine Learning Research Assistant, Montreal Neurological Institute-Hospital (Jan. 2025 – Dec. 2025)', ['Developed a machine learning pipeline for multi-echo MRI image analysis, reducing preprocessing time by 40% (25→15 min per scan) and enabling reproducible QSM experiments on 7T and 3T MRI data.', 'Deployed the pipeline for lab-wide use, supporting ongoing neuroimaging studies and improving data reproducibility across 100+ scans.']],
-  ['Machine Learning Engineer Intern, Huawei Technologies Co., Ltd (Jun. 2024 – Sep. 2024)', ['Optimized internal LLMs with RAG and multi-agent frameworks, boosting debugging efficiency by 25% as measured by average resolution time per case.', 'Fine-tuned large-scale models handling 100K+ daily interactions, enabling automated error diagnosis and code review across Python, Java, and Go projects.', 'Integrated LLM-based code analysis with automation scripts to extract error codes, reducing manual debugging labor by 40% and accelerating issue resolution.']],
-  ['Machine Learning Research Assistant, Central South University, School of Traffic & Transportation Engineering (Apr. 2023 – Sep. 2023)', ['Applied machine learning–inspired optimization techniques (three-stage RLS–LS–LS framework) in MATLAB/Simulink for capacitance estimation of railway DC-link capacitors, improving accuracy by 15% under low sampling frequencies.', 'Validated algorithm performance on dSPACE platform and metro vehicle tests, showing strong robustness against sensor noise and sparse data, with estimation error reduced to within 2%, outperforming conventional baselines (RLS, RELS).', 'Co-authored an IEEE Transactions on Power Electronics paper (2024), positioning the method as a practical ML-based approach for real-world railway converter condition monitoring.']],
+const researchExperience = [
+  ['Machine Learning Research Assistant, The Neuro (Montreal Neurological Institute-Hospital) · Montreal, Canada · Jan. 2025 – Dec. 2025', ['Worked on quantitative MRI and quantitative susceptibility mapping (QSM) pipelines, including image preprocessing, brain masking, image registration, and downstream quantitative analysis.', 'Investigated brain-mask generation for QSM and evaluated BEN, a deep learning-based brain extraction method, as an alternative to conventional masking approaches.', 'Developed and evaluated reproducible neuroimaging preprocessing workflows using Python, FSL, ANTs, NiBabel, and SimpleITK.']],
+  ['Research Assistant, Central South University, School of Traffic & Transportation Engineering · Hunan, China · Apr. 2023 – Sep. 2023', ['Developed data-driven estimation methods for DC-link capacitor health monitoring using MATLAB and Simulink.', 'Designed optimization and simulation procedures for capacitance estimation under low sampling-frequency measurements, contributing to a peer-reviewed publication in IEEE Transactions on Power Electronics.']],
+];
+
+const industryExperience = [
+  ['Machine Learning Engineer Intern, Huawei Technologies Co., Ltd. · Shanghai, China · Jun. 2024 – Sep. 2024', ['Developed LLM-based knowledge retrieval and code-assistance workflows using Retrieval-Augmented Generation (RAG), embeddings, and semantic search.', 'Built data-processing, code-understanding, and error-analysis tools in Python, Java, and Go to support software debugging and technical-information retrieval.']],
 ];
 
 const cvProjects = [
-  ['Gomoku Bot — Python, TensorFlow/Keras, NumPy, tf.data', ['Trained a ResNet-like CNN policy model on ~7M Gomoku board states, achieving ~40%+ top-1 move accuracy on the validation set (400-way classification) and consistently producing strong moves under randomized test positions.', 'Built a high-throughput tf.data pipeline with synchronized board–label augmentation and improved generalization using residual blocks, BatchNorm, L2 regularization, dropout, and early stopping.']],
-  ['Automated Trading Bot (24-hour Hackathon) — Python, TensorFlow, PostgreSQL, GCP, Kubernetes', ['Generated real-time stock trend forecasts and trading signals on live market feeds, reaching ~60%+ directional accuracy in backtests.', 'Implemented an end-to-end ML pipeline and deployed a scalable containerized service on Google Cloud via Kubernetes.']],
-  ['CNN-SVM Reproducibility — TensorFlow 1.x, Python, NumPy, Matplotlib', ['Achieved 99.11% MNIST test accuracy, slightly exceeding the reproduced paper’s results.', 'Engineered a reproducible TensorFlow 1.x environment and performed ablation studies to analyze model behavior.']],
-  ['MLP & CNN Image Classification — Python (from scratch), PyTorch, NumPy', ['Raised Fashion-MNIST accuracy to ~87% and CNN performance to 91.8%, outperforming baseline MLP results.', 'Developed an MLP from scratch and optimized initialization, depth, activation functions, and regularization.']],
-  ['Emotion Classification with BERT — Hugging Face Transformers, PyTorch, GPU (T4)', ['Increased classification accuracy from 80.15% to 91.35%, demonstrating the benefit of deep contextual modeling.', 'Fine-tuned bert-base-uncased with mixed-precision training, warmup, and early stopping.']],
-  ['Regression & Optimization Experiments — Python, scikit-learn, NumPy, Matplotlib', ['Reduced test MSE to 0.251 and improved model generalization on Boston Housing and Wine datasets.', 'Used 5-fold cross-validation and tuned batch size, learning rate, and Gaussian basis functions.']],
+  ['Graph Neural Networks for Spatiotemporal Forecasting — PyTorch · 2025', ['Implemented and evaluated graph neural network architectures for spatiotemporal forecasting on traffic and mobility data.', 'Built training and evaluation pipelines in PyTorch.']],
+  ['LLM Retrieval System — Hugging Face, Sentence Transformers · 2024', ['Built a Retrieval-Augmented Generation pipeline using dense embeddings and semantic search.', 'Achieved 3rd place among 76 teams at McGill CodeJam14.']],
+];
+
+const additionalProjects = [
+  ['Gomoku Bot — Python, TensorFlow/Keras, NumPy, tf.data', ['Trained a ResNet-like CNN policy model for Gomoku move prediction.', 'Built a tf.data pipeline with synchronized board–label augmentation, residual blocks, BatchNorm, regularization, and early stopping.']],
+  ['Automated Trading Bot — Python, TensorFlow, PostgreSQL, GCP, Kubernetes', ['Built a stock trend forecasting and trading-signal pipeline during a 24-hour hackathon.', 'Deployed a containerized service on Google Cloud using Kubernetes.']],
+  ['CNN-SVM Reproducibility — TensorFlow 1.x, Python, NumPy, Matplotlib', ['Reproduced a CNN-SVM model on MNIST and performed ablation studies in a reproducible TensorFlow 1.x environment.']],
+  ['MLP & CNN Image Classification — Python, PyTorch, NumPy', ['Developed an MLP from scratch and compared image classifiers on Fashion-MNIST.', 'Explored initialization, depth, activation functions, and regularization.']],
+  ['Emotion Classification with BERT — Hugging Face Transformers, PyTorch', ['Fine-tuned bert-base-uncased for emotion classification using mixed-precision training, warmup, and early stopping.']],
+  ['Regression & Optimization Experiments — Python, scikit-learn, NumPy, Matplotlib', ['Studied model generalization using cross-validation and experiments with batch size, learning rate, and Gaussian basis functions.']],
 ];
 
 function ItemList({ items }) { return <ul>{items.map(item => <li key={item}>{item}</li>)}</ul>; }
 
 function CV() {
   return <section id="cv"><span className="eyebrow">Background</span><h2>Curriculum Vitae</h2>
-    <h3>Education</h3><ul><li><strong>McGill University</strong> — Bachelor of Electrical Engineering, Minor in Economics (Sep. 2021 – Dec. 2025)</li></ul>
-    <h3>Experience</h3><ul className="work-experience">{experience.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
-    <h3>Competitions</h3><ul className="competitions"><Accordion title="McGill CodeJam14 Hackathon — 3rd Place (Nov. 2024)"><ul><li><strong>Tech Stack:</strong> Python, Machine Learning, NLP, LLM</li><li>Engineered an LLM-powered prototype integrating RAG, Sentence-Transformers, and semantic search, achieving 95%+ accuracy in contextual query retrieval. <ExternalLink href="https://devpost.com/software/maestro-qs6gr1">Project link</ExternalLink></li><li>Led model integration in a four-member team, contributing to a top-3 finish among 76 teams.</li></ul></Accordion></ul>
+    <ResumeLink />
+    <h3>Education</h3>
+    <ul className="education-list">
+      <li><strong>Columbia University</strong> · New York, US<br />Master of Science in Electrical Engineering · Aug. 2026 – Dec. 2027 (expected)
+        <p><strong>Selected graduate coursework:</strong> Reinforcement Learning; Heterogeneous Computing for Signal and Data Processing; LLM-Based Generative AI; Systems and Networks for Large-Scale LLM Inference.</p>
+      </li>
+      <li><strong>McGill University</strong> · Montreal, Canada<br />Bachelor of Engineering in Electrical Engineering, Minor in Economics · Sep. 2021 – Jun. 2026</li>
+    </ul>
+    <h3>Research Experience</h3><ul className="work-experience">{researchExperience.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
+    <h3>Industry Experience</h3><ul className="work-experience">{industryExperience.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
+    <h3>Competitions</h3><ul className="competitions"><Accordion title="McGill CodeJam14 Hackathon — 3rd of 76 teams (Nov. 2024)"><ul><li>Built an LLM retrieval prototype integrating RAG, Sentence Transformers, and semantic search. <ExternalLink href="https://devpost.com/software/maestro-qs6gr1">Project link</ExternalLink></li></ul></Accordion></ul>
     <h3>Publications</h3><ul className="publications"><Accordion title="IEEE TPEL (2024) — DC-Link Capacitor Capacitance Estimation in Railways"><ul><li><strong>Title:</strong> A Capacitance Estimation Method for DC-Link Capacitors in Railways Based on Precharging Model and Low Sampling Frequency</li><li><strong>Authors:</strong> Xun Wu, Kaidi Li, Rui Tian, Hengyi Yin, Tianjia Yu, Shu Cheng, Chunyang Chen</li><li><strong>Venue:</strong> IEEE Transactions on Power Electronics, Vol. 39, No. 1, Jan. 2024, pp. 1527–1537</li></ul></Accordion></ul>
-    <h3>Technical Skills</h3><ul><li><strong>Programming:</strong> Python, Java, C, MySQL, HTML/CSS</li><li><strong>Frameworks:</strong> TensorFlow, PyTorch, Keras, Hugging Face, scikit-learn, OpenCV, Pandas, NumPy, CUDA</li><li><strong>DevOps & Cloud:</strong> Docker, Kubernetes, AWS, GCP, Spark, GitHub Actions</li><li><strong>ML Development:</strong> Feature engineering, model selection, hyperparameter tuning, experiment tracking, explainability, and evaluation</li></ul>
-    <h3>Projects</h3><ul className="projects">{cvProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
+    <h3>Technical Skills</h3><ul><li><strong>Programming:</strong> Python, C, Java, Go, SQL, MATLAB</li><li><strong>Machine Learning:</strong> PyTorch, TensorFlow, Hugging Face, scikit-learn, OpenCV, NumPy, Pandas</li><li><strong>Biomedical Imaging:</strong> FSL, ANTs, NiBabel, SimpleITK, Quantitative MRI, QSM, Brain Extraction, Image Registration</li><li><strong>Tools:</strong> Git, Docker, AWS, Jupyter, VS Code, MATLAB/Simulink</li></ul>
+    <h3>Research Interests</h3><p>{researchInterests.join(' · ')}</p>
+    <h3>Selected Projects</h3><ul className="projects">{cvProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
+    <h3>Additional Projects</h3><ul className="projects">{additionalProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
   </section>;
 }
 
@@ -316,12 +343,48 @@ function Publications() {
 }
 
 const portfolioProjects = [
-  { title: 'Maestro', description: 'Finished in a 36-hour hackathon, Maestro is a workflow automation tool that uses advanced machine learning to automate repetitive tasks, integrate APIs, and surface actionable analytics.', technologies: ['Retrieval-Augmented Generation (RAG)', 'LangChain', 'Prompt Engineering', 'Python', 'TensorFlow', 'Node.js', 'Docker', 'AWS (EC2, S3)'], features: ['Intelligent task automation using RAG and LangChain', 'Seamless API integrations', 'Customizable prompt-engineered workflows', 'Real-time analytics dashboard', 'Scalable AWS deployment with Docker'], links: [['View on Devpost', 'https://devpost.com/software/maestro-qs6gr1'], ['View on GitHub', 'https://github.com/Blacklotus88888/CodeJam14-CloseAI']] },
-  { title: 'OnlyTrades', description: 'Finished in a 24-hour hackathon, OnlyTrades is a secure trading platform using machine learning for stock price prediction and real-time analytics.', technologies: ['Long Short-Term Memory (LSTM)', 'XGBoost', 'Attention Mechanisms', 'Python', 'TensorFlow', 'PostgreSQL', 'Google Cloud Platform'], features: ['Stock prediction using LSTM, XGBoost, and attention', 'Real-time transaction tracking and notifications', 'OAuth 2.0 authentication', 'Trade and asset dashboard', 'Kubernetes deployment on Google Cloud'], links: [['View on Devpost', 'https://devpost.com/software/onlytrades-i60wev'], ['View on GitHub', 'https://github.com/OnlyTrades/OnlyTrades']] },
+  {
+    title: 'QSM & Brain Extraction', category: 'Research · The Neuro · 2025',
+    description: 'Reproducible quantitative MRI workflows, from brain masking and registration to downstream QSM analysis.',
+    technologies: ['Python', 'FSL', 'ANTs', 'NiBabel', 'SimpleITK', 'BEN'],
+    features: ['Worked on image preprocessing, brain masking, image registration, and quantitative analysis for QSM.', 'Evaluated BEN, a deep learning-based brain extraction method, as an alternative to conventional masking approaches.', 'Developed and evaluated preprocessing workflows with an emphasis on robust, reproducible analysis.'],
+    links: [],
+  },
+  {
+    title: 'Graph Neural Networks for Spatiotemporal Forecasting', category: 'Machine Learning · 2025',
+    description: 'Graph neural network architectures for forecasting on traffic and mobility data, implemented and evaluated in PyTorch.',
+    technologies: ['PyTorch', 'Graph Neural Networks', 'Spatiotemporal Forecasting'],
+    features: ['Implemented graph neural network architectures for traffic and mobility forecasting.', 'Built model training and evaluation pipelines in PyTorch.'],
+    links: [],
+  },
+  {
+    title: 'Maestro · LLM Retrieval System', category: 'CodeJam14 · 3rd of 76 teams · 2024',
+    description: 'A hackathon retrieval system using dense embeddings and semantic search to support LLM-powered workflows.',
+    technologies: ['Python', 'Hugging Face', 'Sentence Transformers', 'RAG', 'Semantic Search'],
+    features: ['Built a Retrieval-Augmented Generation pipeline using dense embeddings and semantic search.', 'Integrated retrieval into an LLM-powered hackathon prototype.', 'Achieved 3rd place among 76 teams at McGill CodeJam14.'],
+    links: [['View on Devpost', 'https://devpost.com/software/maestro-qs6gr1'], ['View on GitHub', 'https://github.com/Blacklotus88888/CodeJam14-CloseAI']],
+  },
+  {
+    title: 'OnlyTrades', category: '24-hour Hackathon',
+    description: 'A team-built trading platform combining machine learning forecasts with real-time market analytics.',
+    technologies: ['Python', 'TensorFlow', 'PostgreSQL', 'Google Cloud Platform', 'Kubernetes'],
+    features: ['Built a stock trend forecasting and trading-signal pipeline.', 'Deployed a containerized service on Google Cloud using Kubernetes.'],
+    links: [['View on Devpost', 'https://devpost.com/software/onlytrades-i60wev'], ['View on GitHub', 'https://github.com/OnlyTrades/OnlyTrades']],
+  },
 ];
 
 function Portfolio() {
-  return <section id="portfolio"><span className="eyebrow">Selected work</span><h2>My Portfolio</h2><ul className="accordion">{portfolioProjects.map(project => <Accordion key={project.title} title={project.title}><p><strong>Project Description:</strong> {project.description}</p><p><strong>Technologies Used:</strong></p><ItemList items={project.technologies} /><p><strong>Key Features:</strong></p><ItemList items={project.features} /><p className="project-links">{project.links.map(([label, href]) => <ExternalLink key={href} href={href}>{label}</ExternalLink>)}</p></Accordion>)}</ul></section>;
+  return <section id="portfolio"><span className="eyebrow">Selected work</span><h2>Research & Projects</h2>
+    <p className="section-intro">Selected contributions in biomedical imaging, graph learning, and language-model retrieval.</p>
+    <div className="portfolio-grid">{portfolioProjects.map(project => <article className="project-card" key={project.title}>
+      <p className="project-category">{project.category}</p>
+      <h3>{project.title}</h3>
+      <p className="project-description">{project.description}</p>
+      <ul className="technology-tags" aria-label={`Technologies for ${project.title}`}>{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
+      <details className="project-details"><summary>My contributions</summary><ItemList items={project.features} /></details>
+      {project.links.length > 0 && <p className="project-links">{project.links.map(([label, href]) => <ExternalLink key={href} href={href}>{label}</ExternalLink>)}</p>}
+    </article>)}</div>
+  </section>;
 }
 
 function MusicDock() {
