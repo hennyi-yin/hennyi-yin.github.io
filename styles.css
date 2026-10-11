@@ -112,6 +112,11 @@ html.dark-theme .button.primary { color: #102019; }
 .project-category { margin: 0 0 14px; color: var(--accent); font-size: .76rem; font-weight: 750; }
 .project-card h3 { margin: 0 0 16px; font-family: Georgia, serif; font-size: 1.65rem; line-height: 1.2; letter-spacing: -.025em; text-transform: none; color: var(--text); }
 .project-description { color: var(--muted); }
+.project-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 18px 0; margin: 20px 0; border-block: 1px solid var(--line); }
+.project-metrics > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; min-width: 0; }
+.project-metrics dt { color: var(--muted); font-size: .72rem; line-height: 1.45; }
+.project-metrics dd { margin: 0; color: var(--accent); font-size: clamp(1.25rem, 2vw, 1.7rem); font-weight: 750; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.project-result-note { color: var(--muted); font-size: .86rem; line-height: 1.65; }
 .technology-tags { display: flex; flex-wrap: wrap; gap: 7px; list-style: none; padding: 0; margin: 20px 0; }
 .technology-tags li { margin: 0; padding: 4px 9px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-size: .74rem; }
 .project-details { border-top: 1px solid var(--line); padding-top: 14px; }

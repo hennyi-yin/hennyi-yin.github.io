@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import profileImage from '../images/profile.jpeg';
+import { completedProjects } from './projects';
 
 const resumeUrl = `${import.meta.env.BASE_URL}Hengyi-Yin-Resume.pdf`;
 const contactEmail = 'hengyi.yin@columbia.edu';
@@ -279,7 +280,7 @@ function Home() {
     <section className="hero">
       <span className="eyebrow">Columbia University · Electrical Engineering</span>
       <h1>Learning from language, images, and scientific data.</h1>
-      <p className="lede">I’m Hengyi, an M.S. student in Electrical Engineering at Columbia University and a McGill graduate. My work spans language-model retrieval, graph neural networks, and reproducible neuroimaging workflows.</p>
+      <p className="lede">I’m Hengyi, an M.S. student in Electrical Engineering at Columbia University and a McGill graduate. My work spans language-model post-training and serving, retrieval, graph learning, and reproducible neuroimaging.</p>
       <div className="hero-actions"><NavLink className="button primary" to="/portfolio">Explore my work</NavLink><ResumeLink /><a className="button secondary" href={`mailto:${contactEmail}`}>Get in touch</a></div>
       <div className="stats" aria-label="Core capabilities">
         <div className="stat"><strong>Neuroimaging</strong><span>QSM preprocessing and deep learning-based brain extraction at The Neuro</span></div>
@@ -287,6 +288,7 @@ function Home() {
         <div className="stat"><strong>Published Research</strong><span>Co-author of a 2024 IEEE Transactions on Power Electronics paper</span></div>
       </div>
     </section>
+    <section aria-labelledby="recent-projects-title"><span className="eyebrow">Latest experiments · 2026</span><h2 id="recent-projects-title">Reproducible results, open artifacts.</h2><p className="section-intro">Two completed studies with saved evaluations, transparent comparisons, and downloadable model artifacts.</p><ProjectCards projects={completedProjects} /><p><NavLink className="button secondary" to="/portfolio">All research & projects</NavLink></p></section>
     <section><span className="eyebrow">Focus</span><h2>Research interests</h2><ul className="interest-grid">{researchInterests.map(interest => <li key={interest}>{interest}</li>)}</ul></section>
     <section className="site-activity" aria-labelledby="activity-title"><span className="eyebrow">Live footprint</span><h2 id="activity-title">Seen around the world.</h2><div className="activity-card"><div className="activity-total"><strong>{visits}</strong><span>visits since July 2026</span></div><VisitorMap countries={countries} unavailable={statsUnavailable} /></div><p className="activity-note">Approximate country-level totals. No personal information is stored.</p></section>
   </>;
@@ -333,7 +335,7 @@ function CV() {
     <h3>Publications</h3><ul className="publications"><Accordion title="IEEE TPEL (2024) — DC-Link Capacitor Capacitance Estimation in Railways"><ul><li><strong>Title:</strong> A Capacitance Estimation Method for DC-Link Capacitors in Railways Based on Precharging Model and Low Sampling Frequency</li><li><strong>Authors:</strong> Xun Wu, Kaidi Li, Rui Tian, Hengyi Yin, Tianjia Yu, Shu Cheng, Chunyang Chen</li><li><strong>Venue:</strong> IEEE Transactions on Power Electronics, Vol. 39, No. 1, Jan. 2024, pp. 1527–1537</li></ul></Accordion></ul>
     <h3>Technical Skills</h3><ul><li><strong>Programming:</strong> Python, C, Java, Go, SQL, MATLAB</li><li><strong>Machine Learning:</strong> PyTorch, TensorFlow, Hugging Face, scikit-learn, OpenCV, NumPy, Pandas</li><li><strong>Biomedical Imaging:</strong> FSL, ANTs, NiBabel, SimpleITK, Quantitative MRI, QSM, Brain Extraction, Image Registration</li><li><strong>Tools:</strong> Git, Docker, AWS, Jupyter, VS Code, MATLAB/Simulink</li></ul>
     <h3>Research Interests</h3><p>{researchInterests.join(' · ')}</p>
-    <h3>Selected Projects</h3><ul className="projects">{cvProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
+    <h3>Selected Projects</h3><ul className="projects">{completedProjects.map(project => <Accordion key={project.title} title={`${project.title} · 2026`}><ItemList items={project.features} /><p className="project-links">{project.links.map(([label, href]) => <ExternalLink key={href} href={href}>{label}</ExternalLink>)}</p></Accordion>)}{cvProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
     <h3>Additional Projects</h3><ul className="projects">{additionalProjects.map(([title, items]) => <Accordion key={title} title={title}><ItemList items={items} /></Accordion>)}</ul>
   </section>;
 }
@@ -373,17 +375,23 @@ const portfolioProjects = [
   },
 ];
 
-function Portfolio() {
-  return <section id="portfolio"><span className="eyebrow">Selected work</span><h2>Research & Projects</h2>
-    <p className="section-intro">Selected contributions in biomedical imaging, graph learning, and language-model retrieval.</p>
-    <div className="portfolio-grid">{portfolioProjects.map(project => <article className="project-card" key={project.title}>
+function ProjectCards({ projects }) {
+  return <div className="portfolio-grid">{projects.map(project => <article className="project-card" key={project.title}>
       <p className="project-category">{project.category}</p>
       <h3>{project.title}</h3>
       <p className="project-description">{project.description}</p>
+      {project.metrics && <dl className="project-metrics">{project.metrics.map(([value, label]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
+      {project.resultNote && <p className="project-result-note">{project.resultNote}</p>}
       <ul className="technology-tags" aria-label={`Technologies for ${project.title}`}>{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
       <details className="project-details"><summary>My contributions</summary><ItemList items={project.features} /></details>
       {project.links.length > 0 && <p className="project-links">{project.links.map(([label, href]) => <ExternalLink key={href} href={href}>{label}</ExternalLink>)}</p>}
-    </article>)}</div>
+    </article>)}</div>;
+}
+
+function Portfolio() {
+  return <section id="portfolio"><span className="eyebrow">Selected work</span><h2>Research & Projects</h2>
+    <p className="section-intro">Completed experiments and selected contributions in language-model post-training, efficient serving, biomedical imaging, graph learning, and retrieval.</p>
+    <ProjectCards projects={[...completedProjects, ...portfolioProjects]} />
   </section>;
 }
 
